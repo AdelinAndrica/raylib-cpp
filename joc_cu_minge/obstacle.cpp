@@ -15,3 +15,10 @@ bool Obstacle::CheckCollision(const Vector2 &ballPos, float ballRadius)
 {
     return CheckCollisionCircleRec(ballPos, ballRadius, {position.x, position.y, (float)width, (float)height});
 }
+
+bool Obstacle::isCompleted()
+{
+    if (this->checkpoint)
+        return false;
+    return true;
+}

@@ -15,4 +15,5 @@ public:
 
     void Draw() const;
     bool CheckCollision(const Vector2 &ballPos, float ballRadius);
+    bool isCompleted();
 };

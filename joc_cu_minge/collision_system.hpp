@@ -12,4 +12,11 @@ public:
 
     // Returnează pointer la primul checkpoint activ cu care mingea colizionează, sau nullptr
     static Checkpoint *CheckBallCheckpointCollision(const Ball &ball, const std::vector<std::unique_ptr<Obstacle>> &obstacles);
+
+    // Verifică dacă mingea colizionează cu marginea ferestrei și oprește mingea la margine
+    static void CheckBallWindowCollision(Ball &ball, int windowWidth, int windowHeight);
+
+    // Verifică coliziunea între două dreptunghiuri
+    static bool CheckRectangleRectangleCollision(Vector2 rect1Pos, float rect1Width, float rect1Height,
+                                                 Vector2 rect2Pos, float rect2Width, float rect2Height);
 };

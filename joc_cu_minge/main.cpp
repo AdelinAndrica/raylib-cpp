@@ -8,6 +8,7 @@
 #include "gameplay_logic.hpp"
 #include "input.hpp"
 #include <memory>
+#include <iostream>
 
 int main()
 {
@@ -17,8 +18,8 @@ int main()
     Ball ball;
     HUD hud;
     GameState gameState;
-    Level level;  // <-- Folosește Level
-    level.Load(); // Populează Obstacles
+    Level level; // <-- Folosește Level
+    level.Load();
 
     while (!WindowShouldClose())
     {

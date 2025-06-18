@@ -1,15 +1,23 @@
-#pragma once
+#ifndef BALL_HPP
+#define BALL_HPP
+
 #include "raylib.h"
 
 class Ball
 {
 public:
+    Ball();
+    Ball(Vector2 pos, float r, float s, Vector2 v, float a, float f);
+
+    void Move();
+    void Draw() const;
+
     Vector2 position;
+    Vector2 velocity;
     float radius;
     float speed;
-
-    Ball(Vector2 pos = {400, 300}, float r = 40.0f, float s = 5.0f);
-
-    void Move(int key);
-    void Draw() const;
+    float acceleration;
+    float friction;
 };
+
+#endif
