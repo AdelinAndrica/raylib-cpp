@@ -17,7 +17,5 @@ public:
     void Unload();
 
     void CheckCompletion();
-
-private:
     std::vector<std::unique_ptr<Obstacle>> Obstacles;
 };

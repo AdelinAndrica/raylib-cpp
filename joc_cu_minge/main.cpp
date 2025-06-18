@@ -1,8 +1,12 @@
 #include "raylib.h"
 #include "ball.hpp"
+#include "level.hpp"
 #include "obstacle.hpp"
 #include "hud.hpp"
 #include "game_state.hpp"
+#include "collision_system.hpp"
+#include "gameplay_logic.hpp"
+#include "input.hpp"
 #include <memory>
 
 int main()
@@ -13,54 +17,35 @@ int main()
     Ball ball;
     HUD hud;
     GameState gameState;
-    std::unique_ptr<Obstacle> obstacle = nullptr;
+    Level level;  // <-- Folosește Level
+    level.Load(); // Populează Obstacles
 
     while (!WindowShouldClose())
     {
+        if (!gameState.isGameOver)
+        {
+            ProcessInput(ball);
+            HandleGameplayLogic(ball, level, gameState);
+        }
+
         BeginDrawing();
         ClearBackground(RAYWHITE);
+
         if (gameState.isGameOver)
         {
             DrawText("Game Over! Press R to restart.", 250, 280, 20, RED);
             if (IsKeyPressed(KEY_R))
             {
                 gameState.Reset();
-                hud.Reset();
-                obstacle.reset(); // Reset the obstacle
+                ball = Ball(); // Reset ball
+                level.Load();  // Reset level/obstacles
             }
         }
         else
         {
-            // Handle input and update game state
-            ball.Move(GetKeyPressed());
-            if (obstacle)
-            {
-                if (obstacle->CheckCollision(ball.position, ball.radius))
-                {
-                    hud.lives--;
-                    if (hud.lives <= 0)
-                    {
-                        gameState.isGameOver = true;
-                    }
-                }
-            }
-
-            // Draw the ball and HUD
+            level.Draw();
+            hud.Draw(gameState);
             ball.Draw();
-            hud.Draw();
-
-            // Draw the obstacle if it exists
-            if (obstacle)
-            {
-                obstacle->Draw();
-            }
-
-            // Check for collisions with window boundaries
-            if (ball.position.x < ball.radius || ball.position.x > GetScreenWidth() - ball.radius ||
-                ball.position.y < ball.radius || ball.position.y > GetScreenHeight() - ball.radius)
-            {
-                gameState.isGameOver = true;
-            }
         }
         EndDrawing();
     }

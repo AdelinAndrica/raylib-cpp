@@ -1,13 +1,10 @@
 #pragma once
+#include "game_state.hpp"
 
 class HUD
 {
 public:
-    int score;
-    int lives;
-
     HUD();
 
-    void Draw() const;
-    void Reset();
+    void Draw(const GameState& state) const;
 };

@@ -1,4 +1,7 @@
 #pragma once
+#include "raylib.h"
+#include "level.hpp"
+#include <vector>
 
 struct GameState
 {
@@ -7,10 +10,12 @@ struct GameState
     Vector2 ballVelocity;
     Vector2 paddlePosition;
     float paddleWidth;
-    float paddleHeight; 
-    int score;
-    int lives;
-    
+    float paddleHeight;
+    int score = 0;
+    int lives = 3;
+
+    std::vector<std::unique_ptr<Level>> levels;
+
     GameState() : isGameOver(false) {}
     void Reset() { isGameOver = false; }
 };
