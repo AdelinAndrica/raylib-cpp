@@ -8,8 +8,7 @@ struct GameState
 {
     bool isGameOver = false;
     std::unique_ptr<Ball> ball;
-    float paddleWidth;
-    float paddleHeight;
+    
     int score = 0;
     int lives = 3;
 
