@@ -33,7 +33,12 @@ bool CollisionSystem::CheckRectangleRectangleCollision(Vector2 rect1Pos, float r
 
 bool CollisionSystem::CheckBallWindowCollision(const Ball &ball)
 {
-    return CheckCollisionCircleRec(ball.position, ball.radius, {0.0f, 0.0f, static_cast<float>(GetScreenWidth()), static_cast<float>(GetScreenHeight())});
+    float screenWidth = static_cast<float>(GetScreenWidth());
+    float screenHeight = static_cast<float>(GetScreenHeight());
+
+    // Check collision with window borders
+    return (ball.position.x - ball.radius < 0.0f || ball.position.x + ball.radius > screenWidth ||
+            ball.position.y - ball.radius < 0.0f || ball.position.y + ball.radius > screenHeight);
 }
 
 Checkpoint *CollisionSystem::CheckBallCheckpointCollision(const Ball &ball, const std::vector<std::unique_ptr<Obstacle>> &obstacles)
