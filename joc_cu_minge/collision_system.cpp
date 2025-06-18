@@ -9,9 +9,9 @@ Obstacle *CollisionSystem::CheckBallObstacleCollision(const Ball &ball, const st
     return nullptr;
 }
 
-bool CollisionSystem::CheckSingleBallObstacleCollision(const Ball &ball, const std::unique_ptr<Obstacle> &obstacle)
+bool CollisionSystem::CheckSingleBallObstacleCollision(const Ball &ball, const Obstacle &obstacle)
 {
-    Rectangle rect = {obstacle->position.x, obstacle->position.y, (float)obstacle->width, (float)obstacle->height};
+    Rectangle rect = {obstacle.position.x, obstacle.position.y, (float)obstacle.width, (float)obstacle.height};
     return CheckCollisionCircleRec(ball.position, ball.radius, rect);
 }
 
