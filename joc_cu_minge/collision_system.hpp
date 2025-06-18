@@ -13,7 +13,10 @@ public:
     // Returneaza bool daca mingea s-a lovit de obstacolul respectiv
     static bool CheckSingleBallObstacleCollision(const Ball &ball, const Obstacle &obstacle);
 
-    // Returnează pointer la primul checkpoint activ cu care mingea colizionează, sau nullptr
+    // Returnează bool dacă mingea colizionează cu checkpoint-ul respectiv
+    static bool CheckSingleBallCheckpointCollision(const Ball &ball, const Checkpoint &checkpoint);
+
+    // Verifică dacă mingea colizionează cu un checkpoint și returnează pointer la primul checkpoint activ
     static Checkpoint *CheckBallCheckpointCollision(const Ball &ball, const std::vector<std::unique_ptr<Obstacle>> &obstacles);
 
     // Verifică dacă mingea colizionează cu marginea ferestrei și oprește mingea la margine
