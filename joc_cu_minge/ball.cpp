@@ -1,6 +1,8 @@
 #include "ball.hpp"
 #include <cmath>
+#include <algorithm>
 #include "raylib.h"
+#include "collision_system.hpp"
 
 Ball::Ball(Vector2 pos, float r, float s, Vector2 v, float a, float f)
     : position(pos), radius(r), speed(s), velocity(v), acceleration(a), friction(f)
@@ -24,7 +26,6 @@ Ball::Ball()
     acceleration = 1000.0f;
     friction = 0.98f;
 }
-
 void Ball::Move()
 {
     float dt = GetFrameTime();
@@ -56,6 +57,20 @@ void Ball::Move()
     // Update position
     position.x += velocity.x * dt;
     position.y += velocity.y * dt;
+
+    // Check for window collision and stop at edges and reverse direction while maintaining physics
+    if (CollisionSystem::CheckBallWindowCollision(*this))
+    {
+        // Reverse direction on collision
+        if (position.x - radius < 0 || position.x + radius > GetScreenWidth())
+            velocity.x *= -1;
+        if (position.y - radius < 0 || position.y + radius > GetScreenHeight())
+            velocity.y *= -1;
+
+        // Clamp position to window edges
+        position.x = std::clamp(position.x, radius, static_cast<float>(GetScreenWidth()) - radius);
+        position.y = std::clamp(position.y, radius, static_cast<float>(GetScreenHeight()) - radius);
+    }
 }
 
 void Ball::Draw() const

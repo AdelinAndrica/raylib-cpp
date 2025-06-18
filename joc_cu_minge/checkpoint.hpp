@@ -1,5 +1,6 @@
 #pragma once
 #include "raylib.h"
+#include "ball.hpp"
 
 class Checkpoint
 {
@@ -12,6 +13,6 @@ public:
     Checkpoint(Vector2 pos, float r, Color c);
 
     void Draw() const;
-    bool CheckCollision(const Vector2 &ballPos, float ballRadius);
+    bool CheckCollision(const Ball &ball);
     void Destroy();
 };

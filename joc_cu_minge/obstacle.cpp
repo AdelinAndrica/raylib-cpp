@@ -1,5 +1,7 @@
 #include "obstacle.hpp"
 #include "raylib.h"
+#include "collision_system.hpp"
+#include "ball.hpp"
 
 Obstacle::Obstacle(Vector2 pos, int w, int h, Color c)
     : position(pos), width(w), height(h), color(c), checkpoint(nullptr) {}
@@ -11,9 +13,10 @@ void Obstacle::Draw() const
         checkpoint->Draw();
 }
 
-bool Obstacle::CheckCollision(const Vector2 &ballPos, float ballRadius)
+bool Obstacle::CheckCollision(const Ball &ball)
 {
-    return CheckCollisionCircleRec(ballPos, ballRadius, {position.x, position.y, (float)width, (float)height});
+    // Folosim CollisionSystem
+    return CollisionSystem::CheckSingleBallObstacleCollision(ball, *this);
 }
 
 bool Obstacle::isCompleted()

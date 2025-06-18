@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include <memory>
 #include "checkpoint.hpp"
+#include "ball.hpp"
 
 class Obstacle
 {
@@ -14,6 +15,6 @@ public:
     Obstacle(Vector2 pos, int w, int h, Color c);
 
     void Draw() const;
-    bool CheckCollision(const Vector2 &ballPos, float ballRadius);
+    bool CheckCollision(const Ball &ball);
     bool isCompleted();
 };

@@ -13,16 +13,7 @@ void Checkpoint::Draw() const
 
 bool Checkpoint::CheckCollision(const Ball &ball)
 {
-    // Assuming CheckBallCheckpointCollision should take ball, position, and radius.
-    // If it actually expects a vector of obstacles, you need to pass that instead.
-    if (isActive && CollisionSystem::CheckBallCheckpointCollision(ball, position))
-    {
-        Destroy();
-        return true;
-    }
-    // If the function expects a vector, replace the above line with the correct arguments, e.g.:
-    // if (isActive && CollisionSystem::CheckBallCheckpointCollision(ball, obstacles))
-    return false;
+    return CollisionSystem::CheckSingleBallCheckpointCollision(ball, *this);
 }
 
 void Checkpoint::Destroy()
