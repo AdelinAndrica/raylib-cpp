@@ -4,20 +4,25 @@ Obstacle *CollisionSystem::CheckBallObstacleCollision(const Ball &ball, const st
 {
     for (const auto &obs : obstacles)
     {
-        if (obs->CheckCollision(ball.position, ball.radius))
-            return obs.get();
+        // Use the ball and the obstacle's properties
     }
     return nullptr;
 }
 
-Checkpoint *CollisionSystem::CheckBallCheckpointCollision(const Ball &ball, const std::vector<std::unique_ptr<Obstacle>> &obstacles)
+bool CollisionSystem::CheckSingleBallObstacleCollision(const Ball &ball, const std::unique_ptr<Obstacle> &obstacle)
+{
+    Rectangle rect = {obstacle->position.x, obstacle->position.y, (float)obstacle->width, (float)obstacle->height};
+    return CheckCollisionCircleRec(ball.position, ball.radius, rect);
+}
+
+Obstacle *CollisionSystem::CheckBallObstacleCollision(const Ball &ball, const std::vector<std::unique_ptr<Obstacle>> &obstacles)
 {
     for (const auto &obs : obstacles)
     {
-        if (obs->checkpoint && obs->checkpoint->isActive)
+        Rectangle rect = {obs->position.x, obs->position.y, (float)obs->width, (float)obs->height};
+        if (CheckCollisionCircleRec(ball.position, ball.radius, rect))
         {
-            if (obs->checkpoint->CheckCollision(ball.position, ball.radius))
-                return obs->checkpoint.get();
+            return obs.get();
         }
     }
     return nullptr;

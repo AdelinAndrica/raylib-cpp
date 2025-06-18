@@ -10,6 +10,9 @@ public:
     // Returnează pointer la primul obstacle cu care mingea colizionează, sau nullptr
     static Obstacle *CheckBallObstacleCollision(const Ball &ball, const std::vector<std::unique_ptr<Obstacle>> &obstacles);
 
+    // Returneaza bool daca mingea s-a lovit de obstacolul respectiv
+    static bool CheckSingleBallObstacleCollision(const Ball &ball, const Obstacle &obstacle);
+
     // Returnează pointer la primul checkpoint activ cu care mingea colizionează, sau nullptr
     static Checkpoint *CheckBallCheckpointCollision(const Ball &ball, const std::vector<std::unique_ptr<Obstacle>> &obstacles);
 
