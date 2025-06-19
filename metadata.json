@@ -1,0 +1,23 @@
+{
+    "title": "Ashen Veins",
+    "description": "A mature, turn-based 2D JRPG built in C++ with Raylib. Dark story, permanent death, and tactical combat.",
+    "genre": "RPG, Turn-Based, Pixel Art, Dark Fantasy",
+    "engine": "Raylib (C++)",
+    "features": [
+        "Turn-based combat",
+        "Permanent death",
+        "Exploration",
+        "Dialogue system",
+        "Inventory & Equipment",
+        "Quest system",
+        "Pixel Art",
+        "Shaders & FX"
+    ],
+    "version": "0.1.0",
+    "author": "Adelin Andrica",
+    "platforms": [
+        "Windows",
+        "Linux"
+    ],
+    "status": "In Development"
+}
