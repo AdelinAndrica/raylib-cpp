@@ -1,8 +1,7 @@
 #include "npc.hpp"
-#include "raylib.h"
-#include <algorithm>
-#include <string>
-#include "hud.hpp"
+#include "ball.hpp"
+#include "ui/hud.hpp"
+#include "core/game_state.hpp"
 
 NPC::NPC(Vector2 pos, float r, Color col, Vector2 vel)
     : position(pos), radius(r), color(col), velocity(vel)

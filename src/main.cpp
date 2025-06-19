@@ -1,13 +1,13 @@
 #include "raylib.h"
-#include "ball.hpp"
-#include "level.hpp"
-#include "obstacle.hpp"
-#include "hud.hpp"
-#include "game_state.hpp"
-#include "collision_system.hpp"
-#include "gameplay_logic.hpp"
-#include "input.hpp"
-#include "npc.hpp"
+#include "core/gameplay_logic.hpp"
+#include "core/game_state.hpp"
+#include "entities/npc.hpp"
+#include "entities/ball.hpp"
+#include "entities/obstacle.hpp"
+#include "engine/input.hpp"
+#include "systems/collision_system.hpp"
+#include "levels/level.hpp"
+#include "ui/hud.hpp"
 #include <memory>
 #include <iostream>
 

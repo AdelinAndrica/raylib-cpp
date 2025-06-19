@@ -1,6 +1,6 @@
 #include "hud.hpp"
-#include "raylib.h"
-#include <string>
+#include "core/game_state.hpp"
+
 
 HUD::HUD() {}
 

@@ -1,7 +1,7 @@
 #include "obstacle.hpp"
-#include "raylib.h"
-#include "collision_system.hpp"
+#include "checkpoint.hpp"
 #include "ball.hpp"
+#include "systems/collision_system.hpp"
 
 Obstacle::Obstacle(Vector2 pos, int w, int h, Color c)
     : position(pos), width(w), height(h), color(c), checkpoint(nullptr) {}

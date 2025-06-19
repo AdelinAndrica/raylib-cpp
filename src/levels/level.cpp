@@ -1,8 +1,8 @@
 #include "level.hpp"
-#include "raylib.h"
-#include "collision_system.hpp"
-#include <algorithm>
-#include "game_state.hpp"
+#include "entities/obstacle.hpp"
+#include "entities/npc.hpp"
+#include "systems/collision_system.hpp"
+#include "core/game_state.hpp"
 
 Level::Level()
 {
