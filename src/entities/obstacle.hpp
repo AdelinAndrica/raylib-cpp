@@ -1,8 +1,8 @@
 #pragma once
 #include "raylib.h"
 #include <memory>
-#include "checkpoint.hpp"
-#include "ball.hpp"
+
+class Checkpoint;
 
 class Obstacle
 {

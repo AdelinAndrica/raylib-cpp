@@ -1,7 +1,4 @@
 #include "collision_system.hpp"
-#include "raylib.h"
-#include "game_state.hpp"
-#include "ball.hpp"
 
 Ball &ball = *GameState::GetInstance().ball;
 

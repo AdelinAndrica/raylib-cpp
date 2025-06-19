@@ -1,8 +1,5 @@
 #include "ball.hpp"
-#include <cmath>
-#include <algorithm>
-#include "raylib.h"
-#include "collision_system.hpp"
+#include "systems/collision_system.hpp"
 
 Ball::Ball(Vector2 pos, float r, float s, Vector2 v, float a, float f, Color c)
     : position(pos), radius(r), speed(s), velocity(v), acceleration(a), friction(f), color(c)

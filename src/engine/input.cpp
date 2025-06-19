@@ -1,6 +1,6 @@
 #include "input.hpp"
-#include "raylib.h"
-#include "game_state.hpp"
+#include "core/game_state.hpp"
+#include "entities/ball.hpp"
 
 void ProcessInput()
 {

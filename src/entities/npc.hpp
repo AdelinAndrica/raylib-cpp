@@ -1,6 +1,9 @@
 #pragma once
 #include "raylib.h"
-#include "ball.hpp"
+#include <algorithm>
+#include <string>
+
+class Ball; // Forward declaration
 
 class NPC
 {

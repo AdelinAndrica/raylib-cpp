@@ -1,8 +1,10 @@
 #pragma once
-#include "ball.hpp"
-#include "obstacle.hpp"
-#include "checkpoint.hpp"
+#include "entities/ball.hpp"
+#include "entities/obstacle.hpp"
+#include "entities/checkpoint.hpp"
 #include <vector>
+#include "raylib.h"
+#include "core/game_state.hpp"
 
 class CollisionSystem
 {
@@ -25,5 +27,4 @@ public:
 
     // Verifica coliziunea intre window si mingea
     static bool CheckBallWindowCollision();
-    
 };

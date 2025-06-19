@@ -2,6 +2,10 @@
 #define BALL_HPP
 
 #include "raylib.h"
+#include <cmath>
+#include <algorithm>
+
+
 
 class Ball
 {

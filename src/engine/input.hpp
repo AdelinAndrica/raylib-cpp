@@ -1,4 +1,4 @@
 #pragma once
-#include "ball.hpp"
+#include "raylib.h"
 
 void ProcessInput();

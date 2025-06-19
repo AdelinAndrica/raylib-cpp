@@ -1,10 +1,12 @@
 #pragma once
 
 #include "raylib.h"
-#include "obstacle.hpp"
-#include "npc.hpp"
 #include <vector>
 #include <memory>
+#include <algorithm>
+
+class Obstacle;
+class NPC;
 
 class Level
 {

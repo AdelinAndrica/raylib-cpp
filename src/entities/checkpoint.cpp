@@ -1,6 +1,5 @@
 #include "checkpoint.hpp"
-#include "collision_system.hpp"
-#include "raylib.h"
+#include "systems/collision_system.hpp"
 
 Checkpoint::Checkpoint(Vector2 pos, float r, Color c)
     : position(pos), radius(r), color(c), isActive(true) {}

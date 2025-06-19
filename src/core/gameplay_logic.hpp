@@ -1,8 +1,8 @@
 #pragma once
-#include "ball.hpp"
-#include "level.hpp"
-#include "game_state.hpp"
-#include "collision_system.hpp"
+#include <algorithm>
+
+class Level;
+class GameState;
 
 // Această funcție se ocupă de reacția la coliziuni și modifică gameState
 void HandleGameplayLogic(Level &level, GameState &gameState);

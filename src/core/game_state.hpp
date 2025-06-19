@@ -1,8 +1,10 @@
 #pragma once
 #include "raylib.h"
-#include "level.hpp"
-#include "ball.hpp"
 #include <vector>
+#include <memory>
+
+class Ball;
+class Level;
 
 struct GameState
 {
@@ -16,10 +18,8 @@ struct GameState
     int score = 0;
     int lives = 3;
 
-    GameState()
-        : isGameOver(false), score(0), lives(3), ball(std::make_unique<Ball>()), levels()
-    {
-    }
+    GameState();
+    ~GameState() = default;
 
     void Reset()
     {

@@ -1,8 +1,6 @@
-#include "raylib.h"
-#include "level.hpp"
-#include "ball.hpp"
-#include <vector>
-#include "game_state.hpp"
+#include "core/game_state.hpp"
+#include "levels/level.hpp"
+#include "entities/ball.hpp"
 
 GameState::GameState()
     : isGameOver(false),
