@@ -15,6 +15,6 @@ public:
     Obstacle(Vector2 pos, int w, int h, Color c);
 
     void Draw() const;
-    bool CheckCollision(const Ball &ball);
+    bool CheckCollision();
     bool isCompleted();
 };

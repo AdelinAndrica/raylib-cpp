@@ -11,9 +11,9 @@ void Checkpoint::Draw() const
         DrawCircleV(position, radius, color);
 }
 
-bool Checkpoint::CheckCollision(const Ball &ball)
+bool Checkpoint::CheckCollision()
 {
-    return CollisionSystem::CheckSingleBallCheckpointCollision(ball, *this);
+    return CollisionSystem::CheckSingleBallCheckpointCollision(*this);
 }
 
 void Checkpoint::Destroy()

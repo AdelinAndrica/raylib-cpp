@@ -1,5 +1,6 @@
 #include "hud.hpp"
 #include "raylib.h"
+#include <string>
 
 HUD::HUD() {}
 
@@ -34,4 +35,11 @@ void HUD::Draw(const GameState &state) const
     // Instructions
     DrawText("Use arrow keys", hudX + 16, hudY + 80, 16, GRAY);
     DrawText("to move the ball", hudX + 16, hudY + 100, 16, GRAY);
+}
+
+void HUD::ShowMessage(const std::string &message)
+{
+    int screenW = GetScreenWidth();
+    int screenH = GetScreenHeight();
+    DrawText(message.c_str(), screenW / 2 - MeasureText(message.c_str(), 20) / 2, screenH / 2, 20, DARKGRAY);
 }

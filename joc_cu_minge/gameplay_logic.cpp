@@ -1,12 +1,13 @@
 #include "gameplay_logic.hpp"
 #include <algorithm>
 
-void HandleGameplayLogic(Ball &ball, Level &level, GameState &gameState)
+void HandleGameplayLogic(Level &level, GameState &gameState)
 {
     level.Update();
-    
+    level.Npc->checkConditions();
+
     // Coliziune cu obstacol
-    Obstacle *hitObstacle = CollisionSystem::CheckBallObstacleCollision(ball, level.Obstacles);
+    Obstacle *hitObstacle = CollisionSystem::CheckBallObstacleCollision(level.Obstacles);
     if (hitObstacle)
     {
         gameState.lives--;
@@ -27,7 +28,7 @@ void HandleGameplayLogic(Ball &ball, Level &level, GameState &gameState)
     }
 
     // Coliziune cu checkpoint
-    Checkpoint *hitCheckpoint = CollisionSystem::CheckBallCheckpointCollision(ball, level.Obstacles);
+    Checkpoint *hitCheckpoint = CollisionSystem::CheckBallCheckpointCollision(level.Obstacles);
     if (hitCheckpoint)
     {
         gameState.score++;

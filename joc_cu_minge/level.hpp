@@ -2,6 +2,7 @@
 
 #include "raylib.h"
 #include "obstacle.hpp"
+#include "npc.hpp"
 #include <vector>
 #include <memory>
 
@@ -18,4 +19,5 @@ public:
 
     void CheckCompletion();
     std::vector<std::unique_ptr<Obstacle>> Obstacles;
+    std::unique_ptr<NPC> Npc;
 };

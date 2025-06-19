@@ -5,4 +5,4 @@
 #include "collision_system.hpp"
 
 // Această funcție se ocupă de reacția la coliziuni și modifică gameState
-void HandleGameplayLogic(Ball &ball, Level &level, GameState &gameState);
+void HandleGameplayLogic(Level &level, GameState &gameState);

@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include "collision_system.hpp"
 #include <algorithm>
+#include "game_state.hpp"
 
 Level::Level()
 {
@@ -16,6 +17,9 @@ void Level::Load()
 {
     Obstacles.clear();
 
+    // Cream NPC-ul || NPC(Vector2 pos, float r, Color col, Vector2 vel)
+    Npc = std::make_unique<NPC>(Vector2{200, 200}, 30.0f, BLUE, Vector2{0, 0});
+
     // Pozitia initiala a mingii (de exemplu)
     Vector2 ballStartPos = {400, 300};
     float ballRadius = 40.0f;
@@ -28,6 +32,16 @@ void Level::Load()
         float dx = ballStartPos.x - closestX;
         float dy = ballStartPos.y - closestY;
         return (dx * dx + dy * dy) < (ballRadius * ballRadius);
+    };
+
+    // Verificam daca obstacolele se suprapun cu npc-ul
+    auto overlapsNpc = [&](Vector2 pos, float width, float height)
+    {
+        float closestX = std::max(pos.x, std::min(Npc->position.x, pos.x + width));
+        float closestY = std::max(pos.y, std::min(Npc->position.y, pos.y + height));
+        float dx = Npc->position.x - closestX;
+        float dy = Npc->position.y - closestY;
+        return (dx * dx + dy * dy) < (Npc->radius * Npc->radius);
     };
 
     // Exemplu: Spawnează 3 obstacole cu checkpoint-uri, evitând mingea
@@ -62,7 +76,7 @@ void Level::Load()
 
     for (const auto &d : data)
     {
-        if (overlapsBall(d.pos, d.w, d.h))
+        if (overlapsBall(d.pos, d.w, d.h) || overlapsNpc(d.pos, d.w, d.h))
             continue;
 
         bool overlapsOther = false;
@@ -87,23 +101,21 @@ void Level::Draw()
 {
     for (const auto &obs : Obstacles)
         obs->Draw();
+    if (Npc)
+        Npc->Draw();
+    GameState::GetInstance().ball->Draw(); // Draw the ball
+    // Draw other level elements here, like background, etc.
 }
 
 void Level::Update()
 {
     // Update level logic here
-    for (auto &obs : Obstacles)
-    {
-        if (obs->isCompleted())
-        {
-            // remove completed obstacles from the level
-            this->Obstacles.erase(
-                std::remove_if(this->Obstacles.begin(), this->Obstacles.end(),
-                               [&obs](const std::unique_ptr<Obstacle> &o)
-                               { return o.get() == obs.get(); }),
-                this->Obstacles.end());
-        }
-    }
+    // Remove completed obstacles in a single pass to avoid iterator invalidation
+    Obstacles.erase(
+        std::remove_if(Obstacles.begin(), Obstacles.end(),
+                       [](const std::unique_ptr<Obstacle> &obs)
+                       { return obs->isCompleted(); }),
+        Obstacles.end());
 
     // Check if the level is completed
     CheckCompletion();

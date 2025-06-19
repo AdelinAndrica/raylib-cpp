@@ -13,10 +13,10 @@ void Obstacle::Draw() const
         checkpoint->Draw();
 }
 
-bool Obstacle::CheckCollision(const Ball &ball)
+bool Obstacle::CheckCollision()
 {
     // Folosim CollisionSystem
-    return CollisionSystem::CheckSingleBallObstacleCollision(ball, *this);
+    return CollisionSystem::CheckSingleBallObstacleCollision(*this);
 }
 
 bool Obstacle::isCompleted()

@@ -13,6 +13,6 @@ public:
     Checkpoint(Vector2 pos, float r, Color c);
 
     void Draw() const;
-    bool CheckCollision(const Ball &ball);
+    bool CheckCollision();
     void Destroy();
 };

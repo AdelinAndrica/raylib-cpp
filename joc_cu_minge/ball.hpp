@@ -7,7 +7,7 @@ class Ball
 {
 public:
     Ball();
-    Ball(Vector2 pos, float r, float s, Vector2 v, float a, float f);
+    Ball(Vector2 pos, float r, float s, Vector2 v, float a, float f, Color c);
 
     void Move();
     void Draw() const;
@@ -18,6 +18,7 @@ public:
     float speed;
     float acceleration;
     float friction;
+    Color color;
 };
 
 #endif

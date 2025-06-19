@@ -1,7 +1,8 @@
 #include "input.hpp"
 #include "raylib.h"
+#include "game_state.hpp"
 
-void ProcessInput(Ball &ball)
+void ProcessInput()
 {
-    ball.Move();
+    GameState::GetInstance().ball->Move();
 }

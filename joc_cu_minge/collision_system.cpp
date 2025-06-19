@@ -1,12 +1,17 @@
 #include "collision_system.hpp"
+#include "raylib.h"
+#include "game_state.hpp"
+#include "ball.hpp"
 
-bool CollisionSystem::CheckSingleBallObstacleCollision(const Ball &ball, const Obstacle &obstacle)
+Ball &ball = *GameState::GetInstance().ball;
+
+bool CollisionSystem::CheckSingleBallObstacleCollision(const Obstacle &obstacle)
 {
     Rectangle rect = {obstacle.position.x, obstacle.position.y, (float)obstacle.width, (float)obstacle.height};
     return CheckCollisionCircleRec(ball.position, ball.radius, rect);
 }
 
-Obstacle *CollisionSystem::CheckBallObstacleCollision(const Ball &ball, const std::vector<std::unique_ptr<Obstacle>> &obstacles)
+Obstacle *CollisionSystem::CheckBallObstacleCollision(const std::vector<std::unique_ptr<Obstacle>> &obstacles)
 {
     for (const auto &obs : obstacles)
     {
@@ -19,7 +24,7 @@ Obstacle *CollisionSystem::CheckBallObstacleCollision(const Ball &ball, const st
     return nullptr;
 }
 
-bool CollisionSystem::CheckSingleBallCheckpointCollision(const Ball &ball, const Checkpoint &checkpoint)
+bool CollisionSystem::CheckSingleBallCheckpointCollision(const Checkpoint &checkpoint)
 {
     return CheckCollisionCircleRec(ball.position, ball.radius, {checkpoint.position.x - checkpoint.radius, checkpoint.position.y - checkpoint.radius, checkpoint.radius * 2.0f, checkpoint.radius * 2.0f});
 }
@@ -31,7 +36,7 @@ bool CollisionSystem::CheckRectangleRectangleCollision(Vector2 rect1Pos, float r
              rect1Pos.y + rect1Height < rect2Pos.y || rect2Pos.y + rect2Height < rect1Pos.y);
 }
 
-bool CollisionSystem::CheckBallWindowCollision(const Ball &ball)
+bool CollisionSystem::CheckBallWindowCollision()
 {
     float screenWidth = static_cast<float>(GetScreenWidth());
     float screenHeight = static_cast<float>(GetScreenHeight());
@@ -41,13 +46,13 @@ bool CollisionSystem::CheckBallWindowCollision(const Ball &ball)
             ball.position.y - ball.radius < 0.0f || ball.position.y + ball.radius > screenHeight);
 }
 
-Checkpoint *CollisionSystem::CheckBallCheckpointCollision(const Ball &ball, const std::vector<std::unique_ptr<Obstacle>> &obstacles)
+Checkpoint *CollisionSystem::CheckBallCheckpointCollision(const std::vector<std::unique_ptr<Obstacle>> &obstacles)
 {
     for (const auto &obs : obstacles)
     {
         if (obs->checkpoint && obs->checkpoint->isActive)
         {
-            if (CheckSingleBallCheckpointCollision(ball, *obs->checkpoint))
+            if (CheckSingleBallCheckpointCollision(*obs->checkpoint))
                 return obs->checkpoint.get();
         }
     }

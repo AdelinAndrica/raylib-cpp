@@ -4,8 +4,8 @@
 #include "raylib.h"
 #include "collision_system.hpp"
 
-Ball::Ball(Vector2 pos, float r, float s, Vector2 v, float a, float f)
-    : position(pos), radius(r), speed(s), velocity(v), acceleration(a), friction(f)
+Ball::Ball(Vector2 pos, float r, float s, Vector2 v, float a, float f, Color c)
+    : position(pos), radius(r), speed(s), velocity(v), acceleration(a), friction(f), color(c)
 {
     if (radius == 0.0f)
         radius = 40.0f;
@@ -25,6 +25,7 @@ Ball::Ball()
     speed = 300.0f;
     acceleration = 1000.0f;
     friction = 0.98f;
+    color = RED; // Default color
 }
 void Ball::Move()
 {
@@ -59,7 +60,7 @@ void Ball::Move()
     position.y += velocity.y * dt;
 
     // Check for window collision and stop at edges and reverse direction while maintaining physics
-    if (CollisionSystem::CheckBallWindowCollision(*this))
+    if (CollisionSystem::CheckBallWindowCollision())
     {
         // Reverse direction on collision
         if (position.x - radius < 0 || position.x + radius > GetScreenWidth())

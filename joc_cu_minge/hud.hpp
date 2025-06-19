@@ -6,5 +6,8 @@ class HUD
 public:
     HUD();
 
-    void Draw(const GameState& state) const;
+    void Draw(const GameState &state) const;
+
+    // Afiseaza mesaj
+    static void ShowMessage(const std::string &message);
 };
