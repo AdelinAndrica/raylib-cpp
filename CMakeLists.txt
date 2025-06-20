@@ -45,6 +45,14 @@ project(AshenVeins LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Adaugă sursele din engine (adaptează după structura ta)
+file(GLOB_RECURSE ENGINE_SOURCES CONFIGURE_DEPENDS engine/**/*.cpp)
+file(GLOB_RECURSE ENGINE_HEADERS CONFIGURE_DEPENDS include/**/*.hpp)
+
+add_library(engine STATIC ${ENGINE_SOURCES} ${ENGINE_HEADERS})
+
+target_include_directories(engine PUBLIC ${CMAKE_SOURCE_DIR}/include)
+
 if(EXISTS "${CMAKE_SOURCE_DIR}/tests/CMakeLists.txt")
     add_subdirectory(tests)
 endif()
