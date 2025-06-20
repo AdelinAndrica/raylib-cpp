@@ -4,7 +4,6 @@
 #include "entities/npc.hpp"
 #include "engine/input.hpp"
 #include "systems/collision_system.hpp"
-#include "levels/level.hpp"
 #include "ui/hud.hpp"
 #include <memory>
 #include <iostream>
@@ -16,15 +15,13 @@ int main()
 
     HUD hud;
     GameState &gameState = GameState::GetInstance();
-    std::unique_ptr<Level> level = std::make_unique<Level>();
-    level->Load();
 
     while (!WindowShouldClose())
     {
         if (!gameState.isGameOver)
         {
             ProcessInput();
-            HandleGameplayLogic(*level, gameState);
+            HandleGameplayLogic(gameState);
         }
 
         BeginDrawing();
@@ -36,12 +33,10 @@ int main()
             if (IsKeyPressed(KEY_R))
             {
                 gameState.Reset();
-                level->Load(); // Reset level/obstacles
             }
         }
         else
         {
-            level->Draw();
             hud.Draw(gameState);
         }
         EndDrawing();
