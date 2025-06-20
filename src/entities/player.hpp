@@ -3,16 +3,16 @@
 #include <string>
 #include "raylib.h"
 
-class NPC : public Entity
+class Player : public Entity
 {
 public:
     Texture2D sprite;
     std::string name;
 
-    NPC(Vector2 pos, float spd, const std::string &npcName);
+    Player(Vector2 pos, float spd, const std::string &playerName);
 
     void Update() override;
     void Draw() const override;
 
-    ~NPC() override;
+    ~Player() override;
 };

@@ -1,31 +1,25 @@
 #include "npc.hpp"
-#include "ui/hud.hpp"
-#include "core/game_state.hpp"
+#include "raylib.h"
 
-NPC::NPC(Vector2 pos, float r, Color col, Vector2 vel)
-    : position(pos), radius(r), color(col), velocity(vel)
+NPC::NPC(Vector2 pos, float spd, const std::string &npcName)
+    : Entity(pos, spd), name(npcName)
 {
+    // Poți schimba calea către sprite-ul dorit sau folosi un manager de resurse
+    sprite = LoadTexture("assets/npc.png");
 }
 
-void NPC::Move()
+void NPC::Update()
 {
+    // Logica de mișcare pentru NPC (dacă e cazul)
+    // Ex: patrulare, idle, etc. Pentru început poate rămâne goală.
 }
 
 void NPC::Draw() const
 {
-    DrawCircleV(position, radius, color);
+    DrawTextureV(sprite, position, WHITE);
 }
 
-bool NPC::isPlayerNear()
+NPC::~NPC()
 {
-}
-
-void NPC::startConversation()
-{
-    // This will use HUD
-    HUD::ShowMessage(std::string("Hello! I am an NPC. How can I help you?"));
-}
-
-void NPC::checkConditions()
-{
+    UnloadTexture(sprite);
 }
