@@ -6,13 +6,18 @@
 class Player : public Entity
 {
 public:
-    Texture2D sprite;
     std::string name;
+    Texture2D sprite;
 
-    Player(Vector2 pos, float spd, const std::string &playerName);
+    Player(Vector2 pos, float spd, Vector2 sz, const std::string &playerName);
 
     void Update() override;
     void Draw() const override;
+
+    // Exemplu: funcții suplimentare posibile
+    void HandleInput();
+    void SetSprite(Texture2D tex);
+    void SetName(const std::string &newName);
 
     ~Player() override;
 };
