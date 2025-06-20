@@ -4,6 +4,8 @@
 #include <unordered_map>
 #include "raylib.h"
 
+class Map; // Forward declaration
+
 enum class Direction
 {
     Up,
@@ -28,12 +30,17 @@ public:
     void Update() override;
     void Draw() const override;
 
-    void HandleInput();
+    void HandleInput(const Map &map);
     void Move(Direction dir);
 
     void SetSprite(Texture2D tex);
     void SetStat(const std::string &stat, int value);
     int GetStat(const std::string &stat) const;
+
+    int GetCurrentTileX() const { return static_cast<int>(position.x / tileSize); }
+    int GetCurrentTileY() const { return static_cast<int>(position.y / tileSize); }
+    int GetNextTileX(Direction dir) const;
+    int GetNextTileY(Direction dir) const;
 
     ~Player() override;
 };
