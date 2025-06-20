@@ -4,7 +4,7 @@
 
 int main()
 {
-    InitWindow(320, 320, "JRPG Example");
+    InitWindow(800, 600, "JRPG Example");
     InitGameState();
 
     GameState &gs = GameState::GetInstance();

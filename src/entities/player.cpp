@@ -150,7 +150,7 @@ void Player::Draw() const
     DrawTexturePro(
         sprite,
         {0, 0, frameWidth, (float)sprite.height},
-        {position.x, position.y, size.x, size.y},
+        {position.x, position.y, tileSize, tileSize},
         {0, 0},
         0.0f,
         WHITE);
