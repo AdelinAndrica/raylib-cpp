@@ -11,11 +11,16 @@ public:
     Tile &getTile(int x, int y);
     const Tile &getTile(int x, int y) const;
     bool isWalkable(int x, int y) const;
+    bool isTransition(int x, int y) const;
+
+    TileType getTransitionType(int x, int y) const;
+    int getTransitionTarget(int x, int y) const;
+
     void Draw() const;
 
     int width() const { return _width; }
     int height() const { return _height; }
-    float getTileSize() const { return _tileSize; }
+    float GetTileSize() const { return _tileSize; }
 
 private:
     int _width, _height;

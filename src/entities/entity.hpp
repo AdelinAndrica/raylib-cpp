@@ -6,6 +6,9 @@
 
 // Forward declaration pentru Component
 class Component;
+class Map;
+// Forward declaration pentru TileType
+enum class TileType;
 
 class Entity
 {
@@ -47,6 +50,10 @@ public:
         }
         return nullptr; // Nu a găsit componenta
     }
+
+    virtual int GetCurrentTileX() const = 0;
+    virtual int GetCurrentTileY() const = 0;
+    virtual void OnTrigger(TileType type, int transitionTarget);
 
     virtual ~Entity();
 };

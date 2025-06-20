@@ -37,10 +37,14 @@ public:
     void SetStat(const std::string &stat, int value);
     int GetStat(const std::string &stat) const;
 
-    int GetCurrentTileX() const;
-    int GetCurrentTileY() const;
+    // player.hpp
+    int GetCurrentTileX() const override;
+    int GetCurrentTileY() const override;
     int GetNextTileX(Direction dir) const;
     int GetNextTileY(Direction dir) const;
+
+    // Events
+    void OnTrigger(TileType type, int transitionTarget) override;
 
     ~Player() override;
 };

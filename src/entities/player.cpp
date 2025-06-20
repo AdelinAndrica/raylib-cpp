@@ -3,6 +3,7 @@
 #include <cmath>
 #include "core/game_state.hpp"
 #include "world/map.hpp"
+#include <iostream>
 
 Player::Player(Vector2 startPos, float spd, float tileSz, const std::string &playerName)
     : Entity(startPos, spd, {tileSz, tileSz}, "player"),
@@ -22,11 +23,13 @@ Player::Player(Vector2 startPos, float spd, float tileSz, const std::string &pla
 
 int Player::GetCurrentTileX() const
 {
-    return static_cast<int>(position.x / tileSize);
+    const auto &map = *GameState::GetInstance().currentMap;
+    return static_cast<int>(position.x / map.GetTileSize());
 }
 int Player::GetCurrentTileY() const
 {
-    return static_cast<int>(position.y / tileSize);
+    const auto &map = *GameState::GetInstance().currentMap;
+    return static_cast<int>(position.y / map.GetTileSize());
 }
 int Player::GetNextTileX(Direction dir) const
 {
@@ -171,6 +174,32 @@ int Player::GetStat(const std::string &stat) const
 {
     auto it = stats.find(stat);
     return it != stats.end() ? it->second : 0;
+}
+
+// Events
+
+void Player::OnTrigger(TileType type, int transitionTarget)
+{
+    switch (type)
+    {
+    case TileType::Door:
+        std::cout << "[Player] Door transition! Target map/zone id: " << transitionTarget << "\n";
+        // TODO: Apelează GameState/Engine să schimbe harta, repoziționează playerul etc.
+        // Exemplu:
+        // GameState::GetInstance().ChangeMap(transitionTarget);
+        break;
+    case TileType::Edge:
+        std::cout << "[Player] Edge transition! Target: " << transitionTarget << "\n";
+        // TODO: Teleportează sau execută logică de world map/warp
+        break;
+    case TileType::Trigger:
+        std::cout << "[Player] Trigger event! Event id: " << transitionTarget << "\n";
+        // TODO: Inițiază dialog, event, cutscene etc.
+        // Ex: EventManager::GetInstance().StartEvent(transitionTarget);
+        break;
+    default:
+        break;
+    }
 }
 
 Player::~Player()

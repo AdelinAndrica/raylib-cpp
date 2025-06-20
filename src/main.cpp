@@ -1,27 +1,19 @@
 #include "core/game_state.hpp"
-#include "entities/player.hpp"
 #include "raylib.h"
 
 int main()
 {
-    InitWindow(800, 600, "JRPG Example");
-    InitGameState();
+    InitWindow(1920, 1080, "JRPG Example");
 
     GameState &gs = GameState::GetInstance();
+    gs.Init(); // sau InitGameState();
 
     while (!WindowShouldClose())
     {
+        gs.Update();
+
         BeginDrawing();
-        ClearBackground(RAYWHITE);
-
-        // Draw the map
-        if (gs.currentMap)
-        {
-            gs.currentMap->Draw();
-        }
-        gs.player->Update();
-        gs.player->Draw();
-
+        gs.Draw();
         EndDrawing();
     }
 
