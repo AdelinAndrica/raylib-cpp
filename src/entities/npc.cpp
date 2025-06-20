@@ -1,22 +1,28 @@
 #include "npc.hpp"
 #include "raylib.h"
 
-NPC::NPC(Vector2 pos, float spd, const std::string &npcName)
-    : Entity(pos, spd), name(npcName)
+NPC::NPC(Vector2 startPos, float spd, float tileSz, const std::string &npcName, const std::string &spritePath)
+    : Entity(startPos, spd, {tileSz, tileSz}, "npc"),
+      name(npcName)
 {
-    // Poți schimba calea către sprite-ul dorit sau folosi un manager de resurse
-    sprite = LoadTexture("assets/npc.png");
+    sprite = LoadTexture(spritePath.c_str());
 }
 
 void NPC::Update()
 {
-    // Logica de mișcare pentru NPC (dacă e cazul)
-    // Ex: patrulare, idle, etc. Pentru început poate rămâne goală.
+    // Pentru moment, NPC nu face nimic în update
+    Entity::Update();
 }
 
 void NPC::Draw() const
 {
-    DrawTextureV(sprite, position, WHITE);
+    DrawTexturePro(
+        sprite,
+        {0, 0, (float)sprite.width, (float)sprite.height},
+        {position.x, position.y, size.x, size.y},
+        {0, 0},
+        0.0f,
+        WHITE);
 }
 
 NPC::~NPC()

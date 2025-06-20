@@ -12,7 +12,7 @@ Player::Player(Vector2 startPos, float spd, float tileSz, const std::string &pla
       tileSize(tileSz),
       targetPosition(startPos)
 {
-    sprite = LoadTexture("assets/player.png");
+    sprite = LoadTexture("assets/images/player.png");
 
     stats["HP"] = 100;
     stats["MP"] = 50;
@@ -143,9 +143,13 @@ void Player::Update()
 
 void Player::Draw() const
 {
+
+    // Pregatire dimensiune sprite
+    float frameWidth = (float)sprite.width / 6;
+
     DrawTexturePro(
         sprite,
-        {0, 0, (float)sprite.width, (float)sprite.height},
+        {0, 0, frameWidth, (float)sprite.height},
         {position.x, position.y, size.x, size.y},
         {0, 0},
         0.0f,

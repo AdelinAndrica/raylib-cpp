@@ -2,17 +2,12 @@
 
 enum class TileType
 {
-    Empty,
-    Wall,
-    Door,
-    Trigger
+    Empty = 0,
+    Wall = 1
 };
 
 struct Tile
 {
-    TileType type;
-    bool walkable;
-
-    Tile(TileType t = TileType::Empty)
-        : type(t), walkable(t != TileType::Wall) {}
+    TileType type = TileType::Empty;
+    // Poți extinde cu sprite index, anim, etc.
 };

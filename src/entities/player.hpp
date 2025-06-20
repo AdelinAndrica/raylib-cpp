@@ -37,8 +37,8 @@ public:
     void SetStat(const std::string &stat, int value);
     int GetStat(const std::string &stat) const;
 
-    int GetCurrentTileX() const { return static_cast<int>(position.x / tileSize); }
-    int GetCurrentTileY() const { return static_cast<int>(position.y / tileSize); }
+    int GetCurrentTileX() const;
+    int GetCurrentTileY() const;
     int GetNextTileX(Direction dir) const;
     int GetNextTileY(Direction dir) const;
 

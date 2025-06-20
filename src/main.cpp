@@ -1,44 +1,27 @@
-#include "raylib.h"
-#include "core/gameplay_logic.hpp"
 #include "core/game_state.hpp"
-#include "entities/npc.hpp"
-#include "engine/input.hpp"
-#include "systems/collision_system.hpp"
-#include "ui/hud.hpp"
-#include <memory>
-#include <iostream>
+#include "entities/player.hpp"
+#include "raylib.h"
 
 int main()
 {
-    InitWindow(800, 600, "Mingea se misca!");
-    SetTargetFPS(60);
+    InitWindow(320, 320, "JRPG Example");
+    InitGameState();
 
-    HUD hud;
-    GameState &gameState = GameState::GetInstance();
+    GameState &gs = GameState::GetInstance();
 
     while (!WindowShouldClose())
     {
-        if (!gameState.isGameOver)
-        {
-            ProcessInput();
-            HandleGameplayLogic(gameState);
-        }
-
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
-        if (gameState.isGameOver)
+        // Draw the map
+        if (gs.currentMap)
         {
-            DrawText("Game Over! Press R to restart.", 250, 280, 20, RED);
-            if (IsKeyPressed(KEY_R))
-            {
-                gameState.Reset();
-            }
+            gs.currentMap->Draw();
         }
-        else
-        {
-            hud.Draw(gameState);
-        }
+        gs.player->Update();
+        gs.player->Draw();
+
         EndDrawing();
     }
 

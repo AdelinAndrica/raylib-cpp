@@ -6,10 +6,10 @@
 class NPC : public Entity
 {
 public:
-    Texture2D sprite;
     std::string name;
+    Texture2D sprite;
 
-    NPC(Vector2 pos, float spd, const std::string &npcName);
+    NPC(Vector2 startPos, float spd, float tileSz, const std::string &npcName, const std::string &spritePath);
 
     void Update() override;
     void Draw() const override;

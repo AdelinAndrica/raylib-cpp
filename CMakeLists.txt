@@ -26,6 +26,13 @@ if(WIN32)
             $<TARGET_FILE_DIR:AshenVeins>)
 endif()
 
+# Copiază folderul assets în build/assets după build
+add_custom_command(TARGET AshenVeins POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_SOURCE_DIR}/assets"
+        "$<TARGET_FILE_DIR:AshenVeins>/assets"
+)
+
 # Setează folderul de output pentru executabil în build/
 set_target_properties(AshenVeins PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build"

@@ -14,13 +14,6 @@ void HUD::Draw(const GameState &state) const
     const int hudX = screenW - hudWidth - padding;
     const int hudY = padding;
 
-    // HUD background & border
-    DrawRectangle(hudX, hudY, hudWidth, hudHeight, LIGHTGRAY);
-    DrawRectangleLines(hudX, hudY, hudWidth, hudHeight, DARKGRAY);
-
-    // Instructions
-    DrawText("Use arrow keys", hudX + 16, hudY + 80, 16, GRAY);
-    DrawText("to move the ball", hudX + 16, hudY + 100, 16, GRAY);
 }
 
 void HUD::ShowMessage(const std::string &message)

@@ -1,36 +1,12 @@
-#include "core/game_state.hpp"
-#include "levels/level.hpp"
+#include "game_state.hpp"
 
-GameState::GameState()
-    : isGameOver(false),
-      currentLevelIndex(0)
+void InitGameState()
 {
-    levels.push_back(std::make_unique<Level>());
-    levels.push_back(std::make_unique<Level>());
-    levels.push_back(std::make_unique<Level>());
-}
-
-GameState &GameState::GetInstance()
-{
-    static GameState instance;
-    return instance;
-}
-
-Level &GameState::GetCurrentLevel()
-{
-    return *levels[currentLevelIndex];
-}
-
-void GameState::ChangeLevel(int newIndex)
-{
-    if (newIndex > -1 && newIndex <= static_cast<int>(levels.size()))
-    {
-        currentLevelIndex = newIndex;
-        levels[currentLevelIndex]->Load();
-    }
-    else
-    {
-        TraceLog(LOG_WARNING, "Invalid level index: %d", newIndex);
-        isGameOver = true;
-    }
+    GameState &gs = GameState::GetInstance();
+    gs.currentMap = std::make_unique<Map>(10, 10, 32); // hartă 10x10
+    gs.player = std::make_unique<Player>(
+        Vector2{1.0f * 32, 1.0f * 32}, // start pe tile (1,1), presupunând tileSize=32
+        100.0f,                        // viteză
+        32.0f,                         // tileSize
+        "Hero");
 }
