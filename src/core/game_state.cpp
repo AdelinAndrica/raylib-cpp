@@ -1,12 +1,8 @@
 #include "core/game_state.hpp"
 #include "levels/level.hpp"
-#include "entities/ball.hpp"
 
 GameState::GameState()
     : isGameOver(false),
-      score(0),
-      lives(3),
-      ball(std::make_unique<Ball>()),
       currentLevelIndex(0)
 {
     levels.push_back(std::make_unique<Level>());

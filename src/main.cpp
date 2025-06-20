@@ -2,7 +2,6 @@
 #include "core/gameplay_logic.hpp"
 #include "core/game_state.hpp"
 #include "entities/npc.hpp"
-#include "entities/ball.hpp"
 #include "entities/obstacle.hpp"
 #include "engine/input.hpp"
 #include "systems/collision_system.hpp"

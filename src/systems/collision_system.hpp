@@ -1,5 +1,4 @@
 #pragma once
-#include "entities/ball.hpp"
 #include "entities/obstacle.hpp"
 #include "entities/checkpoint.hpp"
 #include <vector>

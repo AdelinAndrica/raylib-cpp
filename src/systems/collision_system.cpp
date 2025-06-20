@@ -1,7 +1,5 @@
 #include "collision_system.hpp"
 
-Ball &ball = *GameState::GetInstance().ball;
-
 bool CollisionSystem::CheckSingleBallObstacleCollision(const Obstacle &obstacle)
 {
     Rectangle rect = {obstacle.position.x, obstacle.position.y, (float)obstacle.width, (float)obstacle.height};
