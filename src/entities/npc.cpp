@@ -1,5 +1,4 @@
 #include "npc.hpp"
-#include "ball.hpp"
 #include "ui/hud.hpp"
 #include "core/game_state.hpp"
 

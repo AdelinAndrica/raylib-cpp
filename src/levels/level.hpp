@@ -20,6 +20,5 @@ public:
     void Unload();
 
     void CheckCompletion();
-    std::vector<std::unique_ptr<Obstacle>> Obstacles;
     std::unique_ptr<NPC> Npc;
 };

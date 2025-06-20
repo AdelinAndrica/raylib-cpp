@@ -1,6 +1,5 @@
 #include "obstacle.hpp"
 #include "checkpoint.hpp"
-#include "ball.hpp"
 #include "systems/collision_system.hpp"
 
 Obstacle::Obstacle(Vector2 pos, int w, int h, Color c)
