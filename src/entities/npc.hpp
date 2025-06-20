@@ -3,8 +3,6 @@
 #include <algorithm>
 #include <string>
 
-class Ball; // Forward declaration
-
 class NPC
 {
 public:
@@ -17,7 +15,7 @@ public:
 
     void Move();
     void Draw() const;
-    bool isPlayerNear(const Ball &ball);
+    bool isPlayerNear();
     void startConversation();
     void checkConditions();
 };

@@ -2,7 +2,6 @@
 #include "core/gameplay_logic.hpp"
 #include "core/game_state.hpp"
 #include "entities/npc.hpp"
-#include "entities/obstacle.hpp"
 #include "engine/input.hpp"
 #include "systems/collision_system.hpp"
 #include "levels/level.hpp"
@@ -16,7 +15,7 @@ int main()
     SetTargetFPS(60);
 
     HUD hud;
-    GameState& gameState = GameState::GetInstance();
+    GameState &gameState = GameState::GetInstance();
     std::unique_ptr<Level> level = std::make_unique<Level>();
     level->Load();
 

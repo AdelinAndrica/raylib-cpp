@@ -1,5 +1,4 @@
 #include "level.hpp"
-#include "entities/obstacle.hpp"
 #include "entities/npc.hpp"
 #include "systems/collision_system.hpp"
 #include "core/game_state.hpp"
