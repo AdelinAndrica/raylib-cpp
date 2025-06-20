@@ -1,40 +1,33 @@
 #include "gameplay_logic.hpp"
-#include "levels/level.hpp"
 #include "game_state.hpp"
-#include "systems/collision_system.hpp"
 #include "entities/npc.hpp"
 
-void HandleGameplayLogic(Level &level, GameState &gameState)
+void HandleGameplayLogic(GameState &gameState)
 {
-    level.Update();
-    level.Npc->checkConditions();
+}
 
-    // Coliziune cu obstacol
-    Obstacle *hitObstacle = CollisionSystem::CheckBallObstacleCollision(level.Obstacles);
-    if (hitObstacle)
+void CheckPlayerTransition(Map &map, Player &player)
+{
+    int tx = player.GetCurrentTileX();
+    int ty = player.GetCurrentTileY();
+
+    if (map.isTransition(tx, ty))
     {
-        gameState.lives--;
-        if (gameState.lives <= 0)
-            gameState.isGameOver = true;
-
-        // Caută și elimină obstacolul lovit după adresă
-        auto it = std::find_if(
-            level.Obstacles.begin(),
-            level.Obstacles.end(),
-            [hitObstacle](const std::unique_ptr<Obstacle> &ptr)
-            { return ptr.get() == hitObstacle; });
-        if (it != level.Obstacles.end())
+        TileType tt = map.getTransitionType(tx, ty);
+        int target = map.getTransitionTarget(tx, ty);
+        switch (tt)
         {
-            level.Obstacles.erase(it);
+        case TileType::Door:
+            // ex: încarcă altă hartă/cameră, poziționează player-ul
+            break;
+        case TileType::Edge:
+            // ex: teleport world map sau wrap
+            break;
+        case TileType::Trigger:
+            // ex: pornește dialog/event
+            break;
+        default:
+            break;
         }
-        // Poți adăuga și alte reacții aici (resetare poziție, efecte etc.)
-    }
-
-    // Coliziune cu checkpoint
-    Checkpoint *hitCheckpoint = CollisionSystem::CheckBallCheckpointCollision(level.Obstacles);
-    if (hitCheckpoint)
-    {
-        gameState.score++;
-        hitCheckpoint->Destroy();
     }
 }

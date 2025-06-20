@@ -1,23 +1,18 @@
 #pragma once
-#include "raylib.h"
-#include <algorithm>
+#include "entity.hpp"
 #include <string>
+#include "raylib.h"
 
-class Ball; // Forward declaration
-
-class NPC
+class NPC : public Entity
 {
 public:
-    Vector2 position;
-    float radius;
-    Color color;
-    Vector2 velocity;
+    std::string name;
+    Texture2D sprite;
 
-    NPC(Vector2 pos, float r, Color col, Vector2 vel);
+    NPC(Vector2 startPos, float spd, float tileSz, const std::string &npcName, const std::string &spritePath);
 
-    void Move();
-    void Draw() const;
-    bool isPlayerNear(const Ball &ball);
-    void startConversation();
-    void checkConditions();
+    void Update() override;
+    void Draw() const override;
+
+    ~NPC() override;
 };

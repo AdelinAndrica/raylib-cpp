@@ -1,51 +1,19 @@
-#include "raylib.h"
-#include "core/gameplay_logic.hpp"
 #include "core/game_state.hpp"
-#include "entities/npc.hpp"
-#include "entities/ball.hpp"
-#include "entities/obstacle.hpp"
-#include "engine/input.hpp"
-#include "systems/collision_system.hpp"
-#include "levels/level.hpp"
-#include "ui/hud.hpp"
-#include <memory>
-#include <iostream>
+#include "raylib.h"
 
 int main()
 {
-    InitWindow(800, 600, "Mingea se misca!");
-    SetTargetFPS(60);
+    InitWindow(1920, 1080, "JRPG Example");
 
-    HUD hud;
-    GameState& gameState = GameState::GetInstance();
-    std::unique_ptr<Level> level = std::make_unique<Level>();
-    level->Load();
+    GameState &gs = GameState::GetInstance();
+    gs.Init(); // sau InitGameState();
 
     while (!WindowShouldClose())
     {
-        if (!gameState.isGameOver)
-        {
-            ProcessInput();
-            HandleGameplayLogic(*level, gameState);
-        }
+        gs.Update();
 
         BeginDrawing();
-        ClearBackground(RAYWHITE);
-
-        if (gameState.isGameOver)
-        {
-            DrawText("Game Over! Press R to restart.", 250, 280, 20, RED);
-            if (IsKeyPressed(KEY_R))
-            {
-                gameState.Reset();
-                level->Load(); // Reset level/obstacles
-            }
-        }
-        else
-        {
-            level->Draw();
-            hud.Draw(gameState);
-        }
+        gs.Draw();
         EndDrawing();
     }
 

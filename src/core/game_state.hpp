@@ -1,39 +1,30 @@
 #pragma once
-#include "raylib.h"
-#include <vector>
 #include <memory>
+#include <vector>
+#include "world/map.hpp"
+#include "entities/player.hpp"
+#include "entities/entity.hpp"
 
-class Ball;
-class Level;
-
-struct GameState
+class GameState
 {
-    bool isGameOver = false;
-    std::unique_ptr<Ball> ball;
-    std::vector<std::unique_ptr<Level>> levels;
-
-    // Current level index.
-    int currentLevelIndex = 0;
-
-    int score = 0;
-    int lives = 3;
-
-    GameState();
-    ~GameState() = default;
-
-    void Reset()
+public:
+    static GameState &GetInstance()
     {
-        isGameOver = false;
-        score = 0;
-        lives = 3;
+        static GameState instance;
+        return instance;
     }
 
-    // Returns the current level.
-    Level &GetCurrentLevel();
+    std::unique_ptr<Map> currentMap;
+    std::unique_ptr<Player> player;
+    std::vector<Entity *> entities;
 
-    // Changes to the specified level.
-    void ChangeLevel(int levelIndex);
+    void Init();
+    void Update();
+    void Draw();
 
-    // Returns the singleton instance of GameState.
-    static GameState &GetInstance();
+private:
+    GameState() = default;
+    GameState(const GameState &) = delete;
+    GameState &operator=(const GameState &) = delete;
+    ~GameState() = default;
 };

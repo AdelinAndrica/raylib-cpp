@@ -1,40 +1,30 @@
-#include "core/game_state.hpp"
-#include "levels/level.hpp"
-#include "entities/ball.hpp"
+#include "game_state.hpp"
+#include "engine/collision_system.hpp"
 
-GameState::GameState()
-    : isGameOver(false),
-      score(0),
-      lives(3),
-      ball(std::make_unique<Ball>()),
-      currentLevelIndex(0)
+void GameState::Init()
 {
-    levels.push_back(std::make_unique<Level>());
-    levels.push_back(std::make_unique<Level>());
-    levels.push_back(std::make_unique<Level>());
+    GameState &gs = GameState::GetInstance();
+    gs.currentMap = std::make_unique<Map>(10, 10, 100);
+    gs.player = std::make_unique<Player>(
+        Vector2{1.0f * 100, 1.0f * 100},
+        200.0f,
+        100.0f,
+        "Hero");
+    gs.entities.clear();
+    gs.entities.push_back(gs.player.get());
 }
 
-GameState &GameState::GetInstance()
+void GameState::Update()
 {
-    static GameState instance;
-    return instance;
+    for (auto *e : entities)
+        e->Update();
+    CollisionSystem::Update(*currentMap, entities);
 }
 
-Level &GameState::GetCurrentLevel()
+void GameState::Draw()
 {
-    return *levels[currentLevelIndex];
-}
-
-void GameState::ChangeLevel(int newIndex)
-{
-    if (newIndex > -1 && newIndex <= static_cast<int>(levels.size()))
-    {
-        currentLevelIndex = newIndex;
-        levels[currentLevelIndex]->Load();
-    }
-    else
-    {
-        TraceLog(LOG_WARNING, "Invalid level index: %d", newIndex);
-        isGameOver = true;
-    }
+    if (currentMap)
+        currentMap->Draw();
+    for (auto *e : entities)
+        e->Draw();
 }

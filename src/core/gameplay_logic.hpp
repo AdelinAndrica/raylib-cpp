@@ -1,8 +1,11 @@
 #pragma once
 #include <algorithm>
 
-class Level;
 class GameState;
+class Map;
+class Player;
 
 // Această funcție se ocupă de reacția la coliziuni și modifică gameState
-void HandleGameplayLogic(Level &level, GameState &gameState);
+void HandleGameplayLogic(GameState &gameState);
+// Verifică dacă player-ul a intrat într-o zonă de tranziție
+void CheckPlayerTransition(Map &map, Player &player);

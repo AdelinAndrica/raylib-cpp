@@ -7,9 +7,6 @@ class GameObject
 private:
     /* data */
 public:
-    
-
     GameObject(/* args */);
     ~GameObject();
 };
-
