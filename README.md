@@ -54,9 +54,9 @@
    git clone https://github.com/AdelinAndrica/raylib-cpp.git
    ```
 2. **Build & Run:**
-   - Asigură-te că ai instalat [raylib](https://www.raylib.com/) cu comanda (msys2):
+   - Asigură-te că ai instalat [raylib](https://www.raylib.com/) si un compilator C++ compatibil cu comanda (msys2):
      ```sh
-     pacman -S mingw-w64-x86_64-raylib
+     pacman -S mingw-w64-x86_64-raylib mingw-w64-x86_64-gcc make
      ```
         
    - Folosește CMake sau Makefile-ul din proiect:
