@@ -87,6 +87,16 @@ namespace scene
         void PopScene();
 
         /**
+         * @brief Scoate toate scenele de pe vârf și adaugă una nouă.
+         *
+         * Apelează OnExit pentru fiecare scenă scoasă, apoi adaugă noua scenă și îi apelează OnEnter.
+         * Util pentru a schimba complet starea aplicației (ex: la restart sau schimbare hard de stare).
+         *
+         * @param newScene Scena de pus pe vârf (ownership transferat).
+         */
+        void PopAllAndPush(std::unique_ptr<IScene> newScene);
+
+        /**
          * @brief Înlocuiește scena de pe vârf cu una nouă.
          *
          * Apelează OnExit pe scena veche, apoi OnEnter pe cea nouă.

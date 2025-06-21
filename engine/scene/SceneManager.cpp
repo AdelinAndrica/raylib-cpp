@@ -53,9 +53,10 @@ namespace scene
 
     void SceneManager::Update(float dt)
     {
-        int firstActive = FindFirstActiveIndex();
-        for (size_t i = firstActive; i < scenes.size(); ++i)
-            scenes[i]->Update(dt);
+        if (!scenes.empty())
+        {
+            scenes.back()->Update(dt);
+        }
     }
 
     void SceneManager::Draw()
@@ -77,8 +78,9 @@ namespace scene
 
     int SceneManager::FindFirstActiveIndex() const
     {
-        int idx = 0;
-        for (; idx < static_cast<int>(scenes.size()); ++idx)
+        // Daca avem mai multe scene care nu sunt overlay-uri, găsim ultima scena solidă (IsOverlay == false).
+        int idx = scenes.size() - 1;
+        for (; idx >= 0; --idx)
         {
             if (!scenes[idx]->IsOverlay())
                 break;
@@ -86,4 +88,10 @@ namespace scene
         return idx;
     }
 
+    void SceneManager::PopAllAndPush(std::unique_ptr<IScene> newScene)
+    {
+        while (!scenes.empty())
+            scenes.pop_back();
+        scenes.push_back(std::move(newScene));
+    }
 } // namespace scene
