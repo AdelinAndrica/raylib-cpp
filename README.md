@@ -54,13 +54,18 @@
    git clone https://github.com/AdelinAndrica/raylib-cpp.git
    ```
 2. **Build & Run:**
-   - Asigură-te că ai instalat [raylib](https://www.raylib.com/) și un compilator C++ compatibil.
+   - Asigură-te că ai instalat [raylib](https://www.raylib.com/) cu comanda (msys2):
+     ```sh
+     pacman -S mingw-w64-x86_64-raylib
+     ```
+        
    - Folosește CMake sau Makefile-ul din proiect:
      ```sh
      cd raylib-cpp
      mkdir build && cd build
      cmake ..
-     make
+     cmake --build .
+     ```
      ./AshenVeins
      ```
 
