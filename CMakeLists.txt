@@ -52,10 +52,10 @@ set_target_properties(AshenVeins PROPERTIES
 )
 
 
-# add_library(engine STATIC ${ENGINE_SOURCES} ${ENGINE_HEADERS})
+add_library(engine STATIC ${ENGINE_SOURCES} ${ENGINE_HEADERS})
 
-# target_include_directories(engine PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(engine PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
-# if(EXISTS "${CMAKE_SOURCE_DIR}/tests/CMakeLists.txt")
-#     add_subdirectory(tests)
-# endif()
+if(EXISTS "${CMAKE_SOURCE_DIR}/tests/CMakeLists.txt")
+    add_subdirectory(tests)
+endif()
