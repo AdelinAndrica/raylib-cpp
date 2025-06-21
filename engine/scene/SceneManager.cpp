@@ -53,10 +53,13 @@ namespace scene
 
     void SceneManager::Update(float dt)
     {
-        if (!scenes.empty())
-        {
-            scenes.back()->Update(dt);
-        }
+        if (scenes.empty())
+            return;
+
+        // Actualizează toate scenele active: de la prima scenă solidă + overlay-urile de deasupra
+        int firstActive = FindFirstActiveIndex();
+        for (size_t i = firstActive; i < scenes.size(); ++i)
+            scenes[i]->Update(dt);
     }
 
     void SceneManager::Draw()
