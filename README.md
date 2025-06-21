@@ -58,7 +58,11 @@
      ```sh
      pacman -S mingw-w64-x86_64-raylib mingw-w64-x86_64-gcc make
      ```
-        
+    - Cloneaza Catch2 in `external/Catch2` ca si submodul:
+        ```sh
+        git submodule add https://github.com/catchorg/Catch2.git external/Catch2
+        git submodule update --init
+        ```
    - Folosește CMake sau Makefile-ul din proiect:
      ```sh
      cd raylib-cpp
