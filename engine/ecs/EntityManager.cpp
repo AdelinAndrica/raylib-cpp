@@ -1,53 +1,22 @@
-#include "EntityManager.hpp"
+// engine/ecs/EntityManager.cpp
+#include "ecs/EntityManager.hpp"
 
-EntityManager::EntityManager()
-    : nextID(0)
+Entity EntityManager::create()
 {
+    Entity e = recycled.empty() ? next++ : recycled.back();
+    if (!recycled.empty())
+        recycled.pop_back();
+    alive.insert(e);
+    return e;
 }
 
-EntityID EntityManager::createEntity()
+void EntityManager::destroy(Entity e)
 {
-    EntityID id;
-    if (!freeIDs.empty())
-    {
-        id = freeIDs.front();
-        freeIDs.pop();
-        active[id] = true;
-    }
-    else
-    {
-        id = nextID++;
-        active.push_back(true);
-    }
-    return id;
+    alive.erase(e);
+    recycled.push_back(e);
 }
 
-void EntityManager::destroyEntity(EntityID id)
+bool EntityManager::isAlive(Entity e) const
 {
-    if (id >= active.size() || !active[id])
-        return;
-    active[id] = false;
-    freeIDs.push(id);
-}
-
-bool EntityManager::isValid(EntityID id) const
-{
-    return id < active.size() && active[id];
-}
-
-void EntityManager::reset()
-{
-    nextID = 0;
-    std::queue<EntityID> empty;
-    std::swap(freeIDs, empty);
-    active.clear();
-}
-
-std::size_t EntityManager::livingEntities() const
-{
-    std::size_t count = 0;
-    for (bool a : active)
-        if (a)
-            ++count;
-    return count;
+    return alive.find(e) != alive.end();
 }

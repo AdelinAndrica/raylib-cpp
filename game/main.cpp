@@ -1,43 +1,40 @@
-#include "raylib.h"
-#include "scene/SceneManager.hpp"
-#include "scenes/MainMenuScene.hpp"
+// game/main.cpp
+#include "ecs/ECSWorld.hpp"
+#include "components/Position.hpp"
+#include "components/Velocity.hpp"
+#include "systems/MovementSystem.hpp"
+#include "systems/LoggerSystem.hpp"
+#include "systems/TestEmitterSystem.hpp"
+#include <iostream>
 #include <memory>
 
 int main()
 {
-    // Inițializează fereastra
-    InitWindow(800, 600, "Test MainMenuScene");
-    // Dezactivam exit-ul cu ESC pentru a testa scena
-    SetExitKey(0);
-    SetWindowState(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT); // Setăm fereastra ca redimensionabilă și activăm VSync
-    SetTargetFPS(60);
+    ECSWorld world;
 
-    // Creează managerul de scene și adaugă scena de meniu
-    scene::SceneManager manager;
-    //  Creează scena de meniu și setează managerul
-    auto mainMenu = std::make_unique<game::scenes::MainMenuScene>();
+    // Register systems
+    world.addSystem<TestEmitterSystem>(std::make_shared<TestEmitterSystem>(), SystemPhase::Init);
+    world.addSystem<LoggerSystem>(std::make_shared<LoggerSystem>(), SystemPhase::Update);
+    world.addSystem<MovementSystem>(std::make_shared<MovementSystem>(), SystemPhase::Update);
 
-    mainMenu->SetSceneManager(&manager);
-    // Adaugă scena de meniu în manager
-    manager.PushScene(std::move(mainMenu));
+    world.configureSystems();
 
-    // Loop principal
-    while (!WindowShouldClose())
-    {
-        float dt = GetFrameTime();
+    // Create entity with components
+    Entity player = world.createEntity();
+    world.addComponent(player, Position{10.f, 20.f});
+    world.addComponent(player, Velocity{5.f, 2.f});
 
-        // Update scenă activă
-        manager.Update(dt);
+    std::cout << "Before update:\n";
+    world.view<Position>([](Entity e, Position &pos)
+                         { std::cout << "Entity " << e << " has Position(" << pos.x << ", " << pos.y << ")\n"; });
 
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
+    // Run systems
+    world.updateSystems(0.016f, SystemPhase::Init);
+    world.updateSystems(0.016f, SystemPhase::Update);
 
-        // Draw scenă activă
-        manager.Draw();
+    std::cout << "After update:\n";
+    world.view<Position>([](Entity e, Position &pos)
+                         { std::cout << "Entity " << e << " has Position(" << pos.x << ", " << pos.y << ")\n"; });
 
-        EndDrawing();
-    }
-
-    CloseWindow();
     return 0;
 }
