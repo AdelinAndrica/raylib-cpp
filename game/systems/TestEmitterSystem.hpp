@@ -1,5 +1,6 @@
 #pragma once
 
+#include "TestEmitterSystem.hpp"
 #include "ecs/System.hpp"
 #include "ecs/ECSWorld.hpp"
 #include "ecs/events/TestEvent.hpp"
@@ -7,8 +8,8 @@
 class TestEmitterSystem : public ISystem
 {
 public:
-    void update(ECSWorld &world, float dt) override;
-    void configure(ECSWorld &world) override
+    void update(ecs::ECSWorld &world, float dt) override;
+    void configure(ecs::ECSWorld &world) override
     {
         // Nu este necesară configurarea suplimentară
     }

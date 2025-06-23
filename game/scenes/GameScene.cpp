@@ -6,7 +6,6 @@
 
 using namespace game::scenes;
 
-GameScene::GameScene() {}
 
 void GameScene::OnEnter() { paused = false; }
 
@@ -26,7 +25,7 @@ void GameScene::HandleInput()
     if (IsKeyPressed(KEY_ESCAPE) && manager)
     {
         paused = !paused; // Toggle pauză
-        auto pause = std::make_unique<PauseScene>();
+        auto pause = std::make_unique<PauseScene>(core);
         pause->SetSceneManager(manager);
         manager->PushScene(std::move(pause));
     }

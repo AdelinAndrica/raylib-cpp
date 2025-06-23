@@ -5,7 +5,7 @@
 #include <vector>
 #include <cstdint>
 
-using Entity = std::uint32_t;
+using Entity = std::uint32_t; 
 
 // =================== ComponentStorage ===================
 template <typename T>

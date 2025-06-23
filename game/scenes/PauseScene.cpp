@@ -6,11 +6,6 @@
 
 using namespace game::scenes;
 
-PauseScene::PauseScene()
-    : menuItems{"Resume", "Main Menu"}
-{
-}
-
 void PauseScene::OnEnter()
 {
     selectedIndex = 0;
@@ -65,7 +60,7 @@ void PauseScene::ProcessSelection()
     }
     else if (item == "Main Menu")
     {
-        auto menu = std::make_unique<MainMenuScene>();
+        auto menu = std::make_unique<MainMenuScene>(core);
         menu->SetSceneManager(manager);
         manager->PopAllAndPush(std::move(menu)); // Înlocuiește GameScene cu MainMenuScene
     }

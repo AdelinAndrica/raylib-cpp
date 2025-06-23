@@ -1,6 +1,6 @@
 #pragma once
 
-#include "scene/IScene.hpp"
+#include "scene/BaseScene.hpp"
 #include <string>
 #include <vector>
 
@@ -12,10 +12,15 @@ namespace scene
 namespace game::scenes
 {
 
-    class PauseScene : public scene::IScene
+    class PauseScene : public scene::BaseScene
     {
     public:
-        PauseScene();
+        PauseScene(Core *core)
+            : scene::BaseScene(core)
+        {
+            // Inițializare opțiuni
+            menuItems = {"Resume", "Options", "Exit"};
+        }
 
         void SetSceneManager(scene::SceneManager *mgr) { manager = mgr; }
 

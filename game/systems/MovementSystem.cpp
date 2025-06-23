@@ -1,8 +1,9 @@
 // game/systems/MovementSystem.cpp
-#include "systems/MovementSystem.hpp"
-#include "ecs/ECSWorld.hpp"
+#include "MovementSystem.hpp"
 #include "components/Position.hpp"
 #include "components/Velocity.hpp"
+
+using namespace ecs;
 
 void MovementSystem::update(ECSWorld &world, float dt)
 {

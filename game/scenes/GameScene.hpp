@@ -1,6 +1,8 @@
 #pragma once
 
-#include "scene/IScene.hpp"
+#include "Core.hpp"
+#include "scene/BaseScene.hpp"
+#include "ecs/ECSWorld.hpp"
 #include <memory>
 #include <string>
 
@@ -12,10 +14,11 @@ namespace scene
 namespace game::scenes
 {
 
-    class GameScene : public scene::IScene
+    class GameScene : public scene::BaseScene
     {
     public:
-        GameScene();
+        explicit GameScene(Core *core)
+            : scene::BaseScene(core) {}
         void SetSceneManager(scene::SceneManager *mgr) { manager = mgr; }
         void OnEnter() override;
         void OnExit() override;

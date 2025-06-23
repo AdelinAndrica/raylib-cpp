@@ -1,6 +1,6 @@
 #pragma once
 
-#include "scene/IScene.hpp"
+#include "scene/BaseScene.hpp"
 #include <string>
 #include <vector>
 
@@ -12,10 +12,17 @@ namespace scene
 namespace game::scenes
 {
 
-    class OptionsScene : public scene::IScene
+    class OptionsScene : public scene::BaseScene
     {
     public:
-        OptionsScene();
+        OptionsScene(Core *core)
+            : scene::BaseScene(core)
+        {
+            // Inițializare opțiuni
+            options = {"Volume", "Fullscreen", "Back"};
+            volume = GetMasterVolume();
+            fullscreen = IsWindowFullscreen();
+        }
 
         void SetSceneManager(scene::SceneManager *mgr) { manager = mgr; }
 

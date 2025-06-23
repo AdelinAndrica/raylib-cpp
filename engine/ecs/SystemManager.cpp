@@ -2,6 +2,8 @@
 #include "ecs/SystemManager.hpp"
 #include "ecs/System.hpp" // <- Necesită pentru std::shared_ptr<ISystem> si SystemPhase
 
+using namespace ecs;
+
 void SystemManager::updateAll(ECSWorld &world, float dt, SystemPhase phase)
 {
     auto it = systemsByPhase.find(phase);

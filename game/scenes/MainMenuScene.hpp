@@ -1,10 +1,10 @@
 #pragma once
 
-#include "scene/IScene.hpp"
 #include <vector>
 #include <string>
 #include <functional>
 #include <memory>
+#include "scene/BaseScene.hpp"
 
 namespace scene
 {
@@ -14,10 +14,11 @@ namespace scene
 namespace game::scenes
 {
 
-    class MainMenuScene : public scene::IScene
+    class MainMenuScene : public scene::BaseScene
     {
     public:
-        MainMenuScene();
+        MainMenuScene(Core *core)
+            : scene::BaseScene(core), menuItems{"Start Game", "Options", "Exit"} {}
 
         void SetSceneManager(scene::SceneManager *mgr) { manager = mgr; }
 

@@ -2,6 +2,8 @@
 #include "ecs/ECSWorld.hpp"
 #include "ecs/EntityManager.hpp"
 
+using namespace ecs;
+
 ECSWorld::ECSWorld()
 {
     em = new EntityManager();

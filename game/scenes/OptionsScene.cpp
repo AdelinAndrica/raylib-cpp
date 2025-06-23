@@ -5,10 +5,6 @@
 
 using namespace game::scenes;
 
-OptionsScene::OptionsScene()
-    : options{"Volume", "Fullscreen", "Back"}
-{
-}
 
 void OptionsScene::OnEnter()
 {

@@ -6,8 +6,11 @@
 #include <unordered_map>
 #include "ecs/SystemPhase.hpp" // <- Necesită pentru SystemPhase
 
-class ISystem;  // Forward declaration
-class ECSWorld; // Forward declaration
+class ISystem; // Forward declaration
+namespace ecs
+{
+    class ECSWorld; // Forward declaration
+}
 // =================== SystemManager ===================
 
 class SystemManager
@@ -16,8 +19,8 @@ public:
     template <typename T>
     void registerSystem(std::shared_ptr<T> system, SystemPhase phase);
 
-    void updateAll(ECSWorld &world, float dt, SystemPhase phase);
-    void configure(ECSWorld &world);
+    void updateAll(ecs::ECSWorld &world, float dt, SystemPhase phase);
+    void configure(ecs::ECSWorld &world);
 
 private:
     std::unordered_map<SystemPhase, std::vector<std::shared_ptr<ISystem>>> systemsByPhase;

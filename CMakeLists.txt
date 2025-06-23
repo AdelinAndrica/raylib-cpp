@@ -4,28 +4,23 @@ project(AshenVeins LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Adaugă sursele din engine (adaptează după structura ta)
-file(GLOB_RECURSE ENGINE_SOURCES CONFIGURE_DEPENDS engine/**/*.cpp)
-file(GLOB_RECURSE ENGINE_HEADERS CONFIGURE_DEPENDS include/**/*.hpp)
-# Adaugă sursele din game (adaptează după structura ta)
+# Adaugă sursele din engine și game
+file(GLOB_RECURSE ENGINE_SOURCES CONFIGURE_DEPENDS engine/*.cpp engine/**/*.cpp)
 file(GLOB_RECURSE GAME_SOURCES CONFIGURE_DEPENDS game/**/*.cpp)
-file(GLOB_RECURSE GAME_HEADERS CONFIGURE_DEPENDS game/**/*.hpp)
 
-add_executable(AshenVeins ${ENGINE_SOURCES} ${ENGINE_HEADERS} ${GAME_SOURCES} ${GAME_HEADERS} game/main.cpp)
+# Creează librăria statică engine
+add_library(engine STATIC ${ENGINE_SOURCES})
+target_include_directories(engine PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
-# Caută raylib instalat în sistem (MSYS2)
-find_package(raylib REQUIRED)
-
-target_link_libraries(AshenVeins PRIVATE raylib)
-
-# Include path pentru surse (dacă ai include-uri de forma #include "core/foo.hpp")
+# Creează executabilul principal doar cu sursele jocului
+add_executable(AshenVeins ${GAME_SOURCES} game/main.cpp)
+set_target_properties(AshenVeins PROPERTIES WIN32_EXECUTABLE FALSE)
+target_link_libraries(AshenVeins PRIVATE engine raylib)
 target_include_directories(AshenVeins PRIVATE 
     ${CMAKE_SOURCE_DIR}/include
     ${CMAKE_SOURCE_DIR}/engine
     ${CMAKE_SOURCE_DIR}/game
 )
-
-
 
 # Pentru Windows: copiază DLL-urile raylib la build
 if(WIN32)
@@ -51,10 +46,11 @@ set_target_properties(AshenVeins PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build"
 )
 
-
-add_library(engine STATIC ${ENGINE_SOURCES} ${ENGINE_HEADERS})
-
-target_include_directories(engine PUBLIC ${CMAKE_SOURCE_DIR}/include)
+if (MSVC)
+    set_target_properties(AshenVeins PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
+else()
+    set_target_properties(AshenVeins PROPERTIES LINK_FLAGS "-mconsole")
+endif()
 
 # if(EXISTS "${CMAKE_SOURCE_DIR}/tests/CMakeLists.txt")
 #     add_subdirectory(tests)

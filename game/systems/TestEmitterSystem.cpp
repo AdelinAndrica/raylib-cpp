@@ -1,6 +1,8 @@
 #include "TestEmitterSystem.hpp"
 #include <iostream>
 
+using namespace ecs;
+
 void TestEmitterSystem::update(ECSWorld &world, float dt)
 {
     static bool emitted = false;

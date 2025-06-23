@@ -8,7 +8,10 @@
 #include <memory>
 #include <any>
 
-class ECSWorld; // Forward declaration
+namespace ecs
+{
+    class ECSWorld; // Forward declaration for ECSWorld
+}
 
 class EventBus
 {

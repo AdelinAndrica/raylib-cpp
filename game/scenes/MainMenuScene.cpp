@@ -6,8 +6,6 @@
 #include <iostream>
 using namespace game::scenes;
 
-MainMenuScene::MainMenuScene()
-    : menuItems{"Start Game", "Options", "Exit"} {}
 
 void MainMenuScene::OnEnter()
 {
@@ -71,13 +69,13 @@ void MainMenuScene::ProcessSelection()
     const std::string &item = menuItems[selectedIndex];
     if (item == "Start Game")
     {
-        auto gameScene = std::make_unique<game::scenes::GameScene>();
+        auto gameScene = std::make_unique<game::scenes::GameScene>(core);
         gameScene->SetSceneManager(manager);
         manager->ReplaceScene(std::move(gameScene));
     }
     else if (item == "Options")
     {
-        auto optionsScene = std::make_unique<game::scenes::OptionsScene>();
+        auto optionsScene = std::make_unique<game::scenes::OptionsScene>(core);
         optionsScene->SetSceneManager(manager);
         manager->PushScene(std::move(optionsScene));
     }

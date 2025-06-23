@@ -2,12 +2,13 @@
 #pragma once
 
 #include "ecs/System.hpp"
+#include "ecs/ECSWorld.hpp"
 
 class MovementSystem : public ISystem
 {
 public:
-    void update(ECSWorld &world, float dt) override;
-    void configure(ECSWorld &world) override
+    void update(ecs::ECSWorld &world, float dt) override;
+    void configure(ecs::ECSWorld &world) override
     {
         // Nu este necesară configurarea suplimentară
     }
