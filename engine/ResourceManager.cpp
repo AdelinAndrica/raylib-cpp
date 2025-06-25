@@ -121,12 +121,13 @@ bool ResourceManager::ReloadTexture(const std::string &path)
     auto it = textures.find(path);
     if (it != textures.end())
     {
-        UnloadTexture(it->second);
+        if (it->second.id != 0)
+            UnloadTexture(it->second);
         textures.erase(it);
     }
-    LoadTexture(path);
+    Texture2D &tex = LoadTexture(path);
     LOG_INFO("Reloaded texture: " + path);
-    return true;
+    return tex.id != 0;
 }
 
 bool ResourceManager::ReloadFont(const std::string &path)
@@ -134,12 +135,13 @@ bool ResourceManager::ReloadFont(const std::string &path)
     auto it = fonts.find(path);
     if (it != fonts.end())
     {
-        UnloadFont(it->second);
+        if (it->second.baseSize != 0)
+            UnloadFont(it->second);
         fonts.erase(it);
     }
-    LoadFont(path);
+    Font &font = LoadFont(path);
     LOG_INFO("Reloaded font: " + path);
-    return true;
+    return font.baseSize != 0;
 }
 
 bool ResourceManager::ReloadSound(const std::string &path)
@@ -147,12 +149,13 @@ bool ResourceManager::ReloadSound(const std::string &path)
     auto it = sounds.find(path);
     if (it != sounds.end())
     {
-        UnloadSound(it->second);
+        if (it->second.stream.buffer != nullptr)
+            UnloadSound(it->second);
         sounds.erase(it);
     }
-    LoadSound(path);
+    Sound &snd = LoadSound(path);
     LOG_INFO("Reloaded sound: " + path);
-    return true;
+    return snd.stream.buffer != nullptr;
 }
 
 bool ResourceManager::ReloadMusic(const std::string &path)
@@ -160,10 +163,11 @@ bool ResourceManager::ReloadMusic(const std::string &path)
     auto it = musics.find(path);
     if (it != musics.end())
     {
-        UnloadMusicStream(it->second);
+        if (it->second.stream.buffer != nullptr)
+            UnloadMusicStream(it->second);
         musics.erase(it);
     }
-    LoadMusic(path);
+    Music &msc = LoadMusic(path);
     LOG_INFO("Reloaded music: " + path);
-    return true;
+    return msc.stream.buffer != nullptr;
 }

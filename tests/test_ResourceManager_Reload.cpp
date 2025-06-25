@@ -2,9 +2,19 @@
 #include <catch2/catch_all.hpp>
 #include <ResourceManager.hpp>
 #include <fstream>
+#include <filesystem>
 
-TEST_CASE("ResourceManager reloads texture", "[ResourceManager][Reload]") {
+TEST_CASE("ResourceManager reloads texture", "[ResourceManager][Reload]")
+{
     ResourceManager rm;
+
+    std::filesystem::create_directories("assets/fallback");
+    // Reload pe asset inexistent nu trebuie să crasheze
+    REQUIRE_NOTHROW(rm.ReloadTexture("does_not_exist.png"));
+    REQUIRE_NOTHROW(rm.ReloadFont("does_not_exist.ttf"));
+    REQUIRE_NOTHROW(rm.ReloadSound("does_not_exist.wav"));
+    REQUIRE_NOTHROW(rm.ReloadMusic("does_not_exist.ogg"));
+
     // Creează un fișier PNG dummy (nu va fi valid, dar testăm fallback-ul)
     std::string path = "dummy.png";
     std::ofstream(path) << "not a real png";
