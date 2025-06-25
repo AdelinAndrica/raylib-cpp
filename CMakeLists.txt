@@ -55,7 +55,7 @@ set_target_properties(AshenVeins PROPERTIES
 
 if (MSVC)
     set_target_properties(AshenVeins PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
-else()
+elseif(MINGW)
     set_target_properties(AshenVeins PROPERTIES LINK_FLAGS "-mconsole")
 endif()
 
