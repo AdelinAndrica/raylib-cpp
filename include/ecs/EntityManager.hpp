@@ -8,13 +8,19 @@
 using Entity = std::uint32_t;
 
 // =================== EntityManager ===================
-class EntityManager {
+class EntityManager
+{
 public:
     EntityManager() = default;
     ~EntityManager() = default;
     Entity create();
     void destroy(Entity e);
     bool isAlive(Entity e) const;
+    void reset();
+    std::size_t livingEntities() const
+    {
+        return alive.size();
+    }
 
 private:
     Entity next = 1;

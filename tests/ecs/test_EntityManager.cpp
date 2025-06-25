@@ -1,7 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch_all.hpp>
 #include "ecs/EntityManager.hpp"
-#include <ecs/Entity.hpp>
 
 TEST_CASE("EntityManager basic creation and validation", "[EntityManager]")
 {

@@ -1,6 +1,7 @@
 // engine/ecs/ECSWorld.cpp
 #include "ecs/ECSWorld.hpp"
 #include "ecs/EntityManager.hpp"
+#include "Profiler.hpp"
 
 using namespace ecs;
 
@@ -36,6 +37,7 @@ void ECSWorld::configureSystems()
 
 void ECSWorld::updateSystems(float dt, SystemPhase phase)
 {
+    PROFILE_SCOPE("ECSWorld::updateSystems");
     systemManager->updateAll(*this, dt, phase);
 }
 

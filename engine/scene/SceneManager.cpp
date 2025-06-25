@@ -1,5 +1,7 @@
 #include "scene/SceneManager.hpp"
 #include <cassert>
+#include "Profiler.hpp"
+#include "Logger.hpp"
 
 namespace scene
 {
@@ -11,6 +13,7 @@ namespace scene
     {
         if (!scenes.empty() && scene->BlocksInputBelow())
             scenes.back()->OnExit();
+        LOG_INFO("Pushed scene: " + scene->GetName());
         scenes.push_back(std::move(scene));
         scenes.back()->OnEnter();
     }
@@ -18,6 +21,7 @@ namespace scene
     void SceneManager::PopScene()
     {
         assert(!scenes.empty() && "Nu există nicio scenă pe stivă!");
+        LOG_INFO("Popped scene: " + scenes.back()->GetName());
         scenes.back()->OnExit();
         scenes.pop_back();
         if (!scenes.empty() && scenes.back()->BlocksInputBelow())
@@ -28,8 +32,13 @@ namespace scene
     {
         if (!scenes.empty())
         {
+            LOG_INFO("Replaced scene: " + scenes.back()->GetName() + " with " + scene->GetName());
             scenes.back()->OnExit();
             scenes.pop_back();
+        }
+        else
+        {
+            LOG_INFO("Added scene: " + scene->GetName());
         }
         scenes.push_back(std::move(scene));
         scenes.back()->OnEnter();
@@ -53,10 +62,9 @@ namespace scene
 
     void SceneManager::Update(float dt)
     {
+        PROFILE_SCOPE("SceneManager::Update");
         if (scenes.empty())
             return;
-
-        // Actualizează toate scenele active: de la prima scenă solidă + overlay-urile de deasupra
         int firstActive = FindFirstActiveIndex();
         for (size_t i = firstActive; i < scenes.size(); ++i)
             scenes[i]->Update(dt);

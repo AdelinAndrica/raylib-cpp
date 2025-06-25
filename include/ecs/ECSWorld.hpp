@@ -13,6 +13,7 @@
 #include "SystemManager.hpp"
 #include "EventBus.hpp"
 #include "System.hpp"
+#include <nlohmann/json.hpp>
 
 using Entity = std::uint32_t;
 
@@ -41,6 +42,9 @@ namespace ecs
         ComponentStorage<T> &getStorage();
 
         template <typename T>
+        const ComponentStorage<T> &getStorage() const;
+
+        template <typename T>
         void addComponent(Entity e, const T &c);
 
         template <typename T>
@@ -59,6 +63,9 @@ namespace ecs
 
         void configureSystems();
         void updateSystems(float dt, SystemPhase phase);
+
+        nlohmann::json Serialize() const;
+        void Deserialize(const nlohmann::json &j);
 
     private:
         EventBus eventBus;
@@ -84,10 +91,18 @@ namespace ecs
     {
         auto idx = std::type_index(typeid(T));
         if (!storages[idx])
-        {
             storages[idx] = std::make_shared<ComponentStorage<T>>();
-        }
         return *std::static_pointer_cast<ComponentStorage<T>>(storages[idx]);
+    }
+
+    template <typename T>
+    const ComponentStorage<T> &ECSWorld::getStorage() const
+    {
+        auto idx = std::type_index(typeid(T));
+        auto it = storages.find(idx);
+        if (it == storages.end() || !it->second)
+            throw std::runtime_error("ComponentStorage not found for this type");
+        return *std::static_pointer_cast<const ComponentStorage<T>>(it->second);
     }
 
     template <typename T>

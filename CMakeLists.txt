@@ -6,11 +6,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Adaugă sursele din engine și game
 file(GLOB_RECURSE ENGINE_SOURCES CONFIGURE_DEPENDS engine/*.cpp engine/**/*.cpp)
+# Adaugă explicit fișierul de serializare:
+list(APPEND ENGINE_SOURCES ${CMAKE_SOURCE_DIR}/include/ecs/ECSWorld_serialization.cpp)
+file(GLOB_RECURSE ENGINE_HEADERS CONFIGURE_DEPENDS include/*.hpp include/**/*.hpp)
 file(GLOB_RECURSE GAME_SOURCES CONFIGURE_DEPENDS game/**/*.cpp)
 
 # Creează librăria statică engine
 add_library(engine STATIC ${ENGINE_SOURCES})
-target_include_directories(engine PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(engine PUBLIC
+    ${CMAKE_SOURCE_DIR}/include
+    ${CMAKE_SOURCE_DIR}/external/json/include
+    ${CMAKE_SOURCE_DIR}/game/components
+)
 
 # Creează executabilul principal doar cu sursele jocului
 add_executable(AshenVeins ${GAME_SOURCES} game/main.cpp)
@@ -52,6 +59,7 @@ else()
     set_target_properties(AshenVeins PROPERTIES LINK_FLAGS "-mconsole")
 endif()
 
-# if(EXISTS "${CMAKE_SOURCE_DIR}/tests/CMakeLists.txt")
-#     add_subdirectory(tests)
-# endif()
+if(EXISTS "${CMAKE_SOURCE_DIR}/tests/CMakeLists.txt")
+    enable_testing() # Activează testele dacă există CMakeLists.txt în tests
+    add_subdirectory(tests)
+endif()
