@@ -49,6 +49,6 @@ TEST_CASE("EntityManager basic creation and validation", "[EntityManager]")
         REQUIRE_FALSE(em.isAlive(e2));
         REQUIRE(em.livingEntities() == 0);
         Entity e3 = em.create();
-        REQUIRE(e3 == 0); // IDs restart from 0
+        REQUIRE(e3 == 1); // IDs restart from 1
     }
 }

@@ -19,13 +19,15 @@ Texture2D &ResourceManager::LoadTexture(const std::string &path)
     if (tex.id == 0)
     {
         LOG_ERROR("Failed to load texture: " + path);
+        static Texture2D invalid = {0};
+        return invalid;
     }
     else
     {
         LOG_INFO("Loaded texture: " + path);
+        textures[path] = tex;
+        return textures[path];
     }
-    textures[path] = tex;
-    return textures[path];
 }
 
 Font &ResourceManager::LoadFont(const std::string &path)
@@ -38,13 +40,15 @@ Font &ResourceManager::LoadFont(const std::string &path)
     if (font.baseSize == 0)
     {
         LOG_ERROR("Failed to load font: " + path);
+        static Font invalid = {0};
+        return invalid;
     }
     else
     {
         LOG_INFO("Loaded font: " + path);
+        fonts[path] = font;
+        return fonts[path];
     }
-    fonts[path] = font;
-    return fonts[path];
 }
 
 Sound &ResourceManager::LoadSound(const std::string &path)
@@ -57,13 +61,15 @@ Sound &ResourceManager::LoadSound(const std::string &path)
     if (sound.stream.buffer == nullptr)
     {
         LOG_ERROR("Failed to load sound: " + path);
+        static Sound invalid = {0};
+        return invalid;
     }
     else
     {
         LOG_INFO("Loaded sound: " + path);
+        sounds[path] = sound;
+        return sounds[path];
     }
-    sounds[path] = sound;
-    return sounds[path];
 }
 
 Music &ResourceManager::LoadMusic(const std::string &path)
@@ -76,31 +82,37 @@ Music &ResourceManager::LoadMusic(const std::string &path)
     if (music.stream.buffer == nullptr)
     {
         LOG_ERROR("Failed to load music: " + path);
+        static Music invalid = {0};
+        return invalid;
     }
     else
     {
         LOG_INFO("Loaded music: " + path);
+        musics[path] = music;
+        return musics[path];
     }
-    musics[path] = music;
-    return musics[path];
 }
 
 void ResourceManager::UnloadAll()
 {
     for (auto &[_, tex] : textures)
-        UnloadTexture(tex);
+        if (tex.id != 0)
+            UnloadTexture(tex);
     textures.clear();
 
     for (auto &[_, font] : fonts)
-        UnloadFont(font);
+        if (font.baseSize != 0)
+            UnloadFont(font);
     fonts.clear();
 
     for (auto &[_, sound] : sounds)
-        UnloadSound(sound);
+        if (sound.stream.buffer != nullptr)
+            UnloadSound(sound);
     sounds.clear();
 
     for (auto &[_, music] : musics)
-        UnloadMusicStream(music);
+        if (music.stream.buffer != nullptr)
+            UnloadMusicStream(music);
     musics.clear();
 }
 

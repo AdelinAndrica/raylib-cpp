@@ -35,6 +35,10 @@ jobs:
         cmake -S . -B build
         cmake --build build
 
+    - name: Ensure assets folders exist
+      run: |
+        mkdir -p assets/fallback
+
     - name: Run tests
       run: |
         cd build/tests
